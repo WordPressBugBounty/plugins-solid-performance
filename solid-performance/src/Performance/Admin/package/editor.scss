@@ -1,4 +1,5 @@
-.wrap.solidwp-performance-settings-page {
+.wrap.solidwp-performance-settings-page,
+body.settings_page_swpsp-settings .components-modal__screen-overlay {
     margin: 0;
     --grape-purple-120: #49108a;
     --grape-purple-110: #53129e;
@@ -40,6 +41,18 @@
 		line-height: 2rem;
 		color: rgb(51, 51, 51);
 		font-size: 1.5rem;
+	}
+
+	a {
+		color: var(--wp-admin-theme-color);
+
+		:hover {
+			color: var(--wp-admin-theme-color-darker-10);
+		}
+
+		:active {
+			color: var(--wp-admin-theme-color-darker-20);
+		}
 	}
 
 	.preloading-progress {
@@ -130,7 +143,8 @@
     p.submit {
         padding-bottom: 0;
     }
-    .components-base-control {
+    .components-base-control,
+	.it-ui-message-list {
         margin-bottom: 20px;
     }
     .components-card__header {

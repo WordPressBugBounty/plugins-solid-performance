@@ -10,8 +10,10 @@
 namespace SolidWP\Performance\API;
 
 use SolidWP\Performance\API\Routes\Page_Cache\Cache_Count;
+use SolidWP\Performance\API\Routes\Page_Cache\Cache_Delivery;
 use SolidWP\Performance\API\Routes\Page_Cache\Clear;
 use SolidWP\Performance\API\Routes\Page_Cache\Debug;
+use SolidWP\Performance\API\Routes\Page_Cache\Nginx;
 use SolidWP\Performance\API\Routes\Page_Cache\Off;
 use SolidWP\Performance\API\Routes\Page_Cache\On;
 use SolidWP\Performance\API\Routes\Page_Cache\Preload;
@@ -59,6 +61,8 @@ class Provider extends Service_Provider {
 		Cache_Count::class,
 		Preload::class,
 		Htaccess::class,
+		Nginx::class,
+		Cache_Delivery::class,
 	];
 
 	/**

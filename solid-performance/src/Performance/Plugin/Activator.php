@@ -41,8 +41,21 @@ final class Activator {
 	/**
 	 * @param  Container $container The container.
 	 */
-	public function __construct( Container $container ) {
+	private function __construct( Container $container ) {
 		$this->container = $container;
+	}
+
+	/**
+	 * Lazy-instantiated callable for register_activation_hook.
+	 *
+	 * @return callable
+	 */
+	public static function callback(): callable {
+		return static function (): void {
+			$instance = new self( swpsp_plugin()->init()->container() );
+
+			$instance->activate();
+		};
 	}
 
 	/**
@@ -52,7 +65,7 @@ final class Activator {
 	 *
 	 * @return void
 	 */
-	public function __invoke(): void {
+	private function activate(): void {
 		$this->advanced_cache_dropin_init();
 		$this->cache_directory_init();
 		$this->write_settings();

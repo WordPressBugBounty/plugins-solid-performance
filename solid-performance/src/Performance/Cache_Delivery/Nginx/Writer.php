@@ -1,13 +1,13 @@
 <?php
 /**
- * The htaccess writer.
+ * The swpsp-nginx.conf writer.
  *
  * @package SolidWP\Performance
  */
 
 declare( strict_types=1 );
 
-namespace SolidWP\Performance\Cache_Delivery\Htaccess;
+namespace SolidWP\Performance\Cache_Delivery\Nginx;
 
 use RuntimeException;
 use SolidWP\Performance\Cache_Delivery\Contracts\Writable;
@@ -15,16 +15,16 @@ use SolidWP\Performance\Filesystem\Filesystem;
 use SolidWP\Performance\Psr\Log\LoggerInterface;
 
 /**
- * The htaccess writer.
+ * The swpsp-nginx.conf writer.
  *
  * @package SolidWP\Performance
  */
 final class Writer implements Writable {
 
 	/**
-	 * @var Htaccess_File
+	 * @var Nginx_Conf_File
 	 */
-	private Htaccess_File $htaccess;
+	private Nginx_Conf_File $nginx_conf;
 
 	/**
 	 * @var Filesystem
@@ -37,34 +37,34 @@ final class Writer implements Writable {
 	private LoggerInterface $logger;
 
 	/**
-	 * @param Htaccess_File   $htaccess The htaccess object.
-	 * @param Filesystem      $filesystem The filesystem object.
+	 * @param Nginx_Conf_File $nginx_conf The nginx conf object.
+	 * @param Filesystem      $filesystem The filesystem component.
 	 * @param LoggerInterface $logger The logger.
 	 */
 	public function __construct(
-		Htaccess_File $htaccess,
+		Nginx_Conf_File $nginx_conf,
 		Filesystem $filesystem,
 		LoggerInterface $logger
 	) {
-		$this->htaccess   = $htaccess;
+		$this->nginx_conf = $nginx_conf;
 		$this->filesystem = $filesystem;
 		$this->logger     = $logger;
 	}
 
 	/**
-	 * Atomically write content to the .htaccess file.
+	 * Atomically write content to the swpsp-nginx.conf file.
 	 *
-	 * @param string $content The content to save to the .htaccess file.
+	 * @param string $content The content to save to the swpsp-nginx.conf file.
 	 *
 	 * @return bool
 	 */
 	public function write( string $content ): bool {
 		try {
-			$filepath = $this->htaccess->get_file_path();
+			$filepath = $this->nginx_conf->get_file_path();
 			$this->filesystem->write( $filepath, $content );
 		} catch ( RuntimeException $e ) {
 			$this->logger->error(
-				'Unable to write content to .htaccess file',
+				'Unable to write content to swpsp-nginx.conf file',
 				[
 					'exception' => $e,
 				]

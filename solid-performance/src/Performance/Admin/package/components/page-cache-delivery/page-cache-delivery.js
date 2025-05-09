@@ -5,13 +5,13 @@ import {
 	CardHeader,
 	SelectControl,
 	Button,
-	BaseControl,
 } from '@wordpress/components';
-import { useDispatch } from '@wordpress/data';
 import apiFetch from '@wordpress/api-fetch';
-import { store as noticesStore } from '@wordpress/notices';
-import { useState } from 'react';
-import { METHOD_HTACCESS, METHOD_PHP } from './constants';
+import { useEffect, useState } from 'react';
+import { METHOD_HTACCESS, METHOD_NGINX, METHOD_PHP } from './constants';
+import { CacheConfigButtons } from '../cache-config-buttons';
+import { createInterpolateElement } from '@wordpress/element';
+import NginxConf from './nginx-conf';
 
 /**
  * The Page Cache Delivery card and related functionality.
@@ -23,10 +23,11 @@ import { METHOD_HTACCESS, METHOD_PHP } from './constants';
  */
 const PageCacheDelivery = ( { performanceSettings, setState } ) => {
 	const [ isSaved, setIsSaved ] = useState(true);
-	const { createErrorNotice, createSuccessNotice } = useDispatch(noticesStore);
 	const { method } = performanceSettings?.page_cache?.cache_delivery ?? '';
 	// Global from wp_localize_script().
-	const supported = swspParams.cacheDelivery.htaccess.supported;
+	const htaccessSupported = swspParams.cacheDelivery.htaccess.supported;
+	const nginxSupported = swspParams.cacheDelivery.nginx.supported;
+	const [ cacheDelivery, setCacheDelivery ] = useState(swspParams.cacheDelivery);
 
 	const cacheDeliveryOptions = [
 		{
@@ -34,9 +35,13 @@ const PageCacheDelivery = ( { performanceSettings, setState } ) => {
 			label: __('Select a Page Cache Method', 'solid-performance'),
 			value: '',
 		},
-		Boolean(supported) && {
+		Boolean(htaccessSupported) && {
 			label: __('htaccess', 'solid-performance'),
 			value: METHOD_HTACCESS,
+		},
+		Boolean(nginxSupported) && {
+			label: __('nginx', 'solid-performance'),
+			value: METHOD_NGINX,
 		},
 		{
 			label: __('php', 'solid-performance'),
@@ -44,37 +49,35 @@ const PageCacheDelivery = ( { performanceSettings, setState } ) => {
 		},
 	].filter(Boolean);
 
-	const handleHtaccessRegenerate = async () => {
-		await apiFetch({
-			path: '/solid-performance/v1/page/htaccess',
-			method: 'POST',
-		}).then(( result ) => {
-			createSuccessNotice(result.message, {
-				type: 'snackbar',
-			});
-		}).catch(( error ) => {
-			createErrorNotice(error.message, {
-				type: 'snackbar',
-			});
-			console.error(error);
+	const setCacheDeliveryState = ( newState ) => {
+		setCacheDelivery({
+			[METHOD_HTACCESS]: {
+				...cacheDelivery[METHOD_HTACCESS],
+				...newState[METHOD_HTACCESS],
+			},
+			[METHOD_NGINX]: {
+				...cacheDelivery[METHOD_NGINX],
+				...newState[METHOD_NGINX],
+			},
 		});
 	};
 
-	const handleHtaccessRemove = async () => {
+	const updateCacheDeliveryState = async () => {
 		await apiFetch({
-			path: '/solid-performance/v1/page/htaccess',
-			method: 'DELETE',
+			path: `/solid-performance/v1/page/cache-delivery`,
 		}).then(( result ) => {
-			createSuccessNotice(result.message, {
-				type: 'snackbar',
-			});
+			setCacheDeliveryState(result.cacheDelivery);
 		}).catch(( error ) => {
-			createErrorNotice(error.message, {
-				type: 'snackbar',
-			});
-			console.error(error);
+			console.log(error);
 		});
 	};
+
+	useEffect(() => {
+		if (isSaved) {
+			console.log('Updating cache delivery state...');
+			void updateCacheDeliveryState();
+		}
+	}, [ isSaved, performanceSettings.page_cache.cache_delivery ]);
 
 	return (
 		<Card>
@@ -103,7 +106,32 @@ const PageCacheDelivery = ( { performanceSettings, setState } ) => {
 					__next40pxDefaultSize
 					__nextHasNoMarginBottom
 					label={__('Page Cache Method', 'solid-performance')}
-					help={__('The "htaccess" method bypasses PHP and should provide better performance, but it disables any response header caching (these will be stripped). Defaults to "htaccess" if Apache is detected on the hosting server.', 'solid-performance')}
+					help={
+						({
+							[ METHOD_HTACCESS ]: __(
+								'The "htaccess" method bypasses PHP and provides better performance, but it disables any response header caching (these will be stripped). Defaults to "htaccess" if Apache is detected on the hosting server.',
+								'solid-performance'
+							),
+							[ METHOD_PHP ]: __(
+								'The "php" method runs through WordPress. It supports all headers, but it is slightly slower than the "htaccess" or "nginx" method.',
+								'solid-performance'
+							),
+							[ METHOD_NGINX ]: createInterpolateElement(
+								__(
+									'The "nginx" method bypasses PHP and provides better performance, but it disables any response header caching (these will be stripped).<br />⚠️ <strong>This configuration requires root access and should only be carried out by experienced system administrators.</strong>',
+									'solid-performance'
+								),
+								{
+									br: <br />,
+									strong: <strong />,
+								}
+							),
+						})[method] ??
+						__(
+							'Choose a method for serving cached pages.',
+							'solid-performance'
+						)
+					}
 					onChange={( value ) => {
 						setState({
 							page_cache: {
@@ -117,19 +145,47 @@ const PageCacheDelivery = ( { performanceSettings, setState } ) => {
 					value={method}
 					options={cacheDeliveryOptions}
 				/>
-				{supported && method === METHOD_HTACCESS && isSaved && (
-					<>
-						<BaseControl>
-							<Button variant="secondary"
-									onClick={handleHtaccessRegenerate}>
-								{__('Regenerate htaccess rules', 'solid-performance')}
-							</Button>
+				{htaccessSupported && method === METHOD_HTACCESS && isSaved && (
+					<CacheConfigButtons
+						method={METHOD_HTACCESS}
+						cacheDelivery={cacheDelivery}
+						setCacheDeliveryState={setCacheDeliveryState}
+						regenerateLabel={__('Regenerate htaccess rules', 'solid-performance')}
+						removeLabel={__('Remove htaccess rules', 'solid-performance')}
+						rulesFoundMessage={__('Solid Performance rules found in your .htaccess file!', 'solid-performance')}
+						rulesMissingMessage={__('The Solid Performance rules are missing from your .htaccess file. Try regenerating the rules to restore full caching functionality.', 'solid-performance')}
+					/>
+				)}
 
-							<Button variant="tertiary"
-									onClick={handleHtaccessRemove}>
-								{__('Remove htaccess rules', 'solid-performance')}
-							</Button>
-						</BaseControl>
+				{nginxSupported && method === METHOD_NGINX && isSaved && (
+					<>
+						<CacheConfigButtons
+							method={METHOD_NGINX}
+							cacheDelivery={cacheDelivery}
+							setCacheDeliveryState={setCacheDeliveryState}
+							regenerateLabel={__('Regenerate Nginx rules', 'solid-performance')}
+							removeLabel={__('Bypass Nginx cache', 'solid-performance')}
+							rulesFoundMessage={createInterpolateElement(
+								__('Solid Performance Nginx rules found! <a>Get help</a> configuring your server. <em>Note: Nginx caching will not be active until the rules have been included in your server configuration</em>.', 'solid-performance'),
+								{
+									a: (
+										<a
+											href="https://go.solidwp.com/performance-page-cache-delivery#using-nginx"
+											target="_blank"
+											rel="noopener noreferrer"
+										/>
+									),
+									em: <em />,
+								}
+							)}
+							rulesMissingMessage={createInterpolateElement(
+								__('The Solid Performance Nginx rules are currently set to bypass server-level caching. Instead, caching will be managed by PHP. <em>Note: This change will not take effect until you reload your Nginx server</em>.', 'solid-performance'),
+								{
+									em: <em />,
+								}
+							)}
+						/>
+						<NginxConf path={cacheDelivery[METHOD_NGINX].path} />
 					</>
 				)}
 				<p className="submit">

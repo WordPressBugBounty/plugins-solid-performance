@@ -11,10 +11,13 @@ declare( strict_types=1 );
 
 namespace SolidWP\Performance\Plugin;
 
+use SolidWP\Performance\Cache_Delivery\Nginx\Manager as NginxManager;
 use SolidWP\Performance\Config\Advanced_Cache;
 use SolidWP\Performance\Container;
-use SolidWP\Performance\Cache_Delivery\Htaccess\Manager;
+use SolidWP\Performance\Cache_Delivery\Htaccess\Manager as HtaccessManager;
 use SolidWP\Performance\Cron\Scheduler;
+use SolidWP\Performance\Psr\Log\LoggerInterface;
+use Throwable;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -35,10 +38,38 @@ final class Deactivator {
 	private Container $container;
 
 	/**
-	 * @param  Container $container The container.
+	 * The logger.
+	 *
+	 * @var LoggerInterface
 	 */
-	public function __construct( Container $container ) {
+	private LoggerInterface $logger;
+
+	/**
+	 * @param Container       $container The container.
+	 * @param LoggerInterface $logger The logger.
+	 */
+	private function __construct(
+		Container $container,
+		LoggerInterface $logger
+	) {
 		$this->container = $container;
+		$this->logger    = $logger;
+	}
+
+	/**
+	 * Lazy-instantiated callable for register_deactivation_hook.
+	 *
+	 * @return callable
+	 */
+	public static function callback(): callable {
+		return static function (): void {
+			$container = swpsp_plugin()->init()->container();
+			$logger    = $container->get( LoggerInterface::class );
+
+			$instance = new self( $container, $logger );
+
+			$instance->deactivate();
+		};
 	}
 
 	/**
@@ -48,9 +79,10 @@ final class Deactivator {
 	 *
 	 * @return void
 	 */
-	public function __invoke(): void {
+	private function deactivate(): void {
 		$this->remove_advanced_cache();
 		$this->remove_htaccess_rules();
+		$this->add_nginx_bypass_rules();
 		$this->clear_scheduled_tasks();
 	}
 
@@ -71,7 +103,33 @@ final class Deactivator {
 	 * @return void
 	 */
 	private function remove_htaccess_rules(): void {
-		$this->container->get( Manager::class )->remove_rules();
+		$this->container->get( HtaccessManager::class )->remove_rules();
+	}
+
+	/**
+	 * Write the "bypass cache rules" to the swpsp-nginx.conf. We don't want to delete
+	 * this file as it could bring down their site on the next Nginx reload.
+	 *
+	 * @return void
+	 */
+	private function add_nginx_bypass_rules(): void {
+		$manager = $this->container->get( NginxManager::class );
+
+		try {
+			if ( ! $manager->exists() ) {
+				return;
+			}
+
+			$manager->bypass();
+		} catch ( Throwable $e ) {
+			$this->logger->error(
+				'Deactivation: error adding Nginx bypass rules',
+				[
+					'error'     => $e->getMessage(),
+					'exception' => $e,
+				]
+			);
+		}
 	}
 
 	/**

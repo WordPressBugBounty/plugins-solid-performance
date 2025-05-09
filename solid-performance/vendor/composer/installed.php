@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'ithemes/solid-performance',
-        'pretty_version' => '1.7.1',
-        'version' => '1.7.1.0',
-        'reference' => '9126ca4d2bb91ad2c3dd86ff14148fd4fad355ac',
+        'pretty_version' => '1.8.0',
+        'version' => '1.8.0.0',
+        'reference' => '806ad2709995fee8609e8f855ccf4f2719db9c14',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -20,9 +20,9 @@
             'dev_requirement' => false,
         ),
         'ithemes/solid-performance' => array(
-            'pretty_version' => '1.7.1',
-            'version' => '1.7.1.0',
-            'reference' => '9126ca4d2bb91ad2c3dd86ff14148fd4fad355ac',
+            'pretty_version' => '1.8.0',
+            'version' => '1.8.0.0',
+            'reference' => '806ad2709995fee8609e8f855ccf4f2719db9c14',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

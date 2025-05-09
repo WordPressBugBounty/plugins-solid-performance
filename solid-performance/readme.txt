@@ -4,7 +4,7 @@ Donate link: https://solidwp.com/performance
 Tags: cache, caching, performance, page speed, core web vitals
 Requires at least: 6.4
 Tested up to: 6.8
-Stable tag: 1.7.1
+Stable tag: 1.8.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -87,6 +87,16 @@ Lastly, navigate to the Dashboard, then navigate to “Settings > Solid Performa
 Now your site is SOLID with Solid Performance!
 
 == Changelog ==
+
+= 1.8.0 =
+
+#### Enhancements
+
+* Added Nginx Cache Delivery method.
+
+#### Bug fixes
+
+* Fixed race condition to prevent fatal errors when the plugin is being activated, deactivated or uninstalled.
 
 = 1.7.1 =
 

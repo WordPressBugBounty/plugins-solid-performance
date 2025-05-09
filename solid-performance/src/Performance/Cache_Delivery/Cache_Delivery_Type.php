@@ -18,6 +18,7 @@ final class Cache_Delivery_Type {
 
 	public const HTACCESS = 'htaccess';
 	public const PHP      = 'php';
+	public const NGINX    = 'nginx';
 
 	/**
 	 * Return all the cache delivery types.
@@ -28,6 +29,7 @@ final class Cache_Delivery_Type {
 		return [
 			self::HTACCESS,
 			self::PHP,
+			self::NGINX,
 		];
 	}
 }

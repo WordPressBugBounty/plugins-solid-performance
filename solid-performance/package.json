@@ -9,16 +9,19 @@
 		"start": "wp-scripts start"
 	},
 	"dependencies": {
-		"@wordpress/icons": "^10.13.0",
-		"@wordpress/api-fetch": "^7.13.0",
-		"@wordpress/components": "^28.13.0",
-		"@wordpress/data": "^10.13.0",
-		"@wordpress/element": "^6.13.0",
-		"@wordpress/i18n": "^5.13.0",
-		"@wordpress/notices": "^5.13.0"
+		"@ithemes/ui": "^0.14.0",
+		"@wordpress/api-fetch": "^7.22.0",
+		"@wordpress/components": "^29.8.0",
+		"@wordpress/compose": "^7.22.0",
+		"@wordpress/data": "^10.22.0",
+		"@wordpress/element": "^6.22.0",
+		"@wordpress/i18n": "^5.22.0",
+		"@wordpress/icons": "^10.22.0",
+		"@wordpress/notices": "^5.22.0",
+		"@wordpress/url": "^4.22.0"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^27.9.0",
-		"react": "^18.3.1"
+		"@wordpress/scripts": "^30.15.0",
+		"react": "^19.1.0"
 	}
 }

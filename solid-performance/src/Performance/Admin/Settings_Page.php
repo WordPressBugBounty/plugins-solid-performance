@@ -11,8 +11,9 @@ declare( strict_types=1 );
 
 namespace SolidWP\Performance\Admin;
 
+use SolidWP\Performance\API\Routes\Page_Cache\Cache_Delivery;
 use SolidWP\Performance\Assets\Asset;
-use SolidWP\Performance\Cache_Delivery\Htaccess\Manager;
+use SolidWP\Performance\Cache_Delivery\Manager_Collection;
 use SolidWP\Performance\Config\Config;
 use SolidWP\Performance\Config\Default_Config;
 use SolidWP\Performance\Cache_Delivery\Cache_Delivery_Type;
@@ -53,29 +54,29 @@ class Settings_Page {
 	private Config $config;
 
 	/**
-	 * @var Manager
+	 * @var Manager_Collection
 	 */
-	private Manager $htaccess;
+	private Manager_Collection $manager_collection;
 
 	/**
-	 * @param View           $view The view renderer.
-	 * @param Asset          $asset The asset helper.
-	 * @param Default_Config $default_config The default config items.
-	 * @param Config         $config The config object.
-	 * @param Manager        $htaccess The htaccess manager.
+	 * @param View               $view The view renderer.
+	 * @param Asset              $asset The asset helper.
+	 * @param Default_Config     $default_config The default config items.
+	 * @param Config             $config The config object.
+	 * @param Manager_Collection $manager_collection The cache delivery collection.
 	 */
 	public function __construct(
 		View $view,
 		Asset $asset,
 		Default_Config $default_config,
 		Config $config,
-		Manager $htaccess
+		Manager_Collection $manager_collection
 	) {
-		$this->view           = $view;
-		$this->asset          = $asset;
-		$this->default_config = $default_config;
-		$this->config         = $config;
-		$this->htaccess       = $htaccess;
+		$this->view               = $view;
+		$this->asset              = $asset;
+		$this->default_config     = $default_config;
+		$this->config             = $config;
+		$this->manager_collection = $manager_collection;
 	}
 
 	/**
@@ -239,6 +240,8 @@ class Settings_Page {
 
 	/**
 	 * Load Page Scripts
+	 *
+	 * @see Cache_Delivery::schema_callback()
 	 */
 	public function admin_head(): void {
 		$script_meta = $this->asset->get_meta( 'build/settings' );
@@ -246,6 +249,10 @@ class Settings_Page {
 		// Enqueue the settings page styles and scripts.
 		wp_enqueue_style( 'solid-performance-settings', $this->asset->get_url( 'build/settings.css' ), [ 'wp-components' ], $script_meta['version'] );
 		wp_enqueue_script( 'solid-performance-settings', $this->asset->get_url( 'build/settings.js' ), $script_meta['dependencies'], $script_meta['version'], true );
+
+		$htaccess = $this->manager_collection->get( Cache_Delivery_Type::HTACCESS );
+		$nginx    = $this->manager_collection->get( Cache_Delivery_Type::NGINX );
+
 		wp_localize_script(
 			'solid-performance-settings',
 			'swspParams',
@@ -253,7 +260,13 @@ class Settings_Page {
 				'settings'      => get_option( self::SETTINGS_SLUG, $this->default_config->get() ),
 				'cacheDelivery' => [
 					'htaccess' => [
-						'supported' => $this->htaccess->supported(),
+						'supported' => $htaccess->supported(),
+						'hasRules'  => $htaccess->has_rules(),
+					],
+					'nginx'    => [
+						'supported' => $nginx->supported(),
+						'hasRules'  => $nginx->has_rules(),
+						'path'      => $nginx->path(),
 					],
 				],
 			]

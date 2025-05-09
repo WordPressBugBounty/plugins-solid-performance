@@ -9,12 +9,7 @@ declare( strict_types=1 );
 
 namespace SolidWP\Performance\Cache_Delivery;
 
-use SolidWP\Performance\Cache_Delivery\Htaccess\Reader;
-use SolidWP\Performance\Cache_Delivery\Htaccess\Settings_Listener;
-use SolidWP\Performance\Cache_Delivery\Htaccess\Writer;
 use SolidWP\Performance\Contracts\Service_Provider;
-use SolidWP\Performance\Cache_Delivery\Htaccess\Contracts\Readable;
-use SolidWP\Performance\Cache_Delivery\Htaccess\Contracts\Writable;
 
 /**
  * Registers Cache Delivery definitions functionality in the container.
@@ -28,6 +23,9 @@ final class Provider extends Service_Provider {
 	 */
 	public function register(): void {
 		$this->register_htaccess();
+		$this->register_nginx();
+		$this->register_manager_collection();
+		$this->register_settings_listener();
 	}
 
 	/**
@@ -36,10 +34,53 @@ final class Provider extends Service_Provider {
 	 * @return void
 	 */
 	private function register_htaccess(): void {
-		$this->container->bind( Writable::class, Writer::class );
-		$this->container->bind( Readable::class, Reader::class );
+		$this->container->when( Htaccess\Manager::class )
+						->needs( Contracts\Writable::class )
+						->give( Htaccess\Writer::class );
 
-		// Toggle adding/removing our htaccess rules based on settings changes.
+		$this->container->when( Htaccess\Manager::class )
+						->needs( Contracts\Readable::class )
+						->give( Htaccess\Reader::class );
+	}
+
+	/**
+	 * Register Nginx cache delivery functionality.
+	 *
+	 * @return void
+	 */
+	private function register_nginx(): void {
+		$this->container->when( Nginx\Manager::class )
+						->needs( Contracts\Writable::class )
+						->give( Nginx\Writer::class );
+
+		$this->container->when( Nginx\Manager::class )
+						->needs( Contracts\Readable::class )
+						->give( Nginx\Reader::class );
+	}
+
+	/**
+	 * Register the managers that are part of the Manager Collection.
+	 *
+	 * @return void
+	 */
+	private function register_manager_collection(): void {
+		$this->container->when( Manager_Collection::class )
+			->needs( '$managers' )
+			->give(
+				fn(): array => [
+					// Add any new managers indexed by their type.
+					Cache_Delivery_Type::HTACCESS => $this->container->get( Htaccess\Manager::class ),
+					Cache_Delivery_Type::NGINX    => $this->container->get( Nginx\Manager::class ),
+				]
+			);
+	}
+
+	/**
+	 * Run events when the cache delivery method changes.
+	 *
+	 * @return void
+	 */
+	private function register_settings_listener(): void {
 		add_action(
 			'solidwp/performance/settings/changed',
 			$this->container->callback( Settings_Listener::class, 'on_settings_change' ),

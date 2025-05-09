@@ -12,7 +12,8 @@ declare( strict_types=1 );
 namespace SolidWP\Performance\Telemetry;
 
 use RuntimeException;
-use SolidWP\Performance\Cache_Delivery\Htaccess\Manager;
+use SolidWP\Performance\Cache_Delivery\Cache_Delivery_Type;
+use SolidWP\Performance\Cache_Delivery\Manager_Collection;
 use SolidWP\Performance\Page_Cache\Compression\Collection;
 use SolidWP\Performance\Page_Cache\Compression\Contracts\Compressible;
 use SolidWP\Performance\Preload\Limiter\Core_Counter;
@@ -51,29 +52,29 @@ class Health_Data {
 	private Preload_Mode_Manager $preload_mode_manager;
 
 	/**
-	 * @var Manager
+	 * @var Manager_Collection
 	 */
-	private Manager $htaccess;
+	private Manager_Collection $manager_collection;
 
 	/**
 	 * @param Collection           $compressors The collection of compression strategies.
 	 * @param System_Load_Monitor  $system_load_monitor The system load monitor.
 	 * @param Core_Counter         $core_counter The core counter.
 	 * @param Preload_Mode_Manager $preload_mode_manager The preload mode manager.
-	 * @param Manager              $htaccess The htaccess manager.
+	 * @param Manager_Collection   $manager_collection The cache delivery manager collection.
 	 */
 	public function __construct(
 		Collection $compressors,
 		System_Load_Monitor $system_load_monitor,
 		Core_Counter $core_counter,
 		Preload_Mode_Manager $preload_mode_manager,
-		Manager $htaccess
+		Manager_Collection $manager_collection
 	) {
 		$this->compressors          = $compressors;
 		$this->system_load_monitor  = $system_load_monitor;
 		$this->core_counter         = $core_counter;
 		$this->preload_mode_manager = $preload_mode_manager;
-		$this->htaccess             = $htaccess;
+		$this->manager_collection   = $manager_collection;
 	}
 
 	/**
@@ -128,7 +129,18 @@ class Health_Data {
 		}
 
 		$core_count         = $this->core_counter->core_count();
-		$has_htaccess_rules = $this->htaccess->has_rules();
+		$has_htaccess_rules = $this->manager_collection->get( Cache_Delivery_Type::HTACCESS )->has_rules();
+		$nginx              = $this->manager_collection->get( Cache_Delivery_Type::NGINX );
+		$has_nginx_rules    = $nginx->has_rules();
+		$nginx_conf_path    = $nginx->path();
+
+		if ( $has_nginx_rules ) {
+			$nginx_rules = esc_html__( 'Found', 'solid-performance' );
+		} elseif ( $nginx->exists() ) {
+			$nginx_rules = esc_html__( 'Bypass', 'solid-performance' );
+		} else {
+			$nginx_rules = esc_html__( 'Missing', 'solid-performance' );
+		}
 
 		$info['solid-performance'] = [
 			'label'  => esc_html__( 'Solid Performance', 'solid-performance' ),
@@ -185,6 +197,19 @@ class Health_Data {
 					'label' => esc_html__( 'Apache htaccess rules', 'solid-performance' ),
 					'value' => $has_htaccess_rules ? esc_html__( 'Found', 'solid-performance' ) : esc_html__( 'Missing', 'solid-performance' ),
 					'debug' => $has_htaccess_rules,
+				],
+				'nginx_rules'                    => [
+					'label' => esc_html__( 'Nginx rules', 'solid-performance' ),
+					'value' => $nginx_rules,
+					'debug' => [
+						'has_rules'   => $has_nginx_rules,
+						'conf_exists' => $nginx->exists(),
+					],
+				],
+				'nginx_conf_path'                => [
+					'label' => esc_html__( 'Nginx.conf path', 'solid-performance' ),
+					'value' => $nginx_conf_path,
+					'debug' => $nginx_conf_path,
 				],
 				'image_transformation'           => [
 					'label' => esc_html__( 'Image Transformation', 'solid-performance' ),

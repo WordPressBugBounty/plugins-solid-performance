@@ -4,7 +4,7 @@
  * Description: Optimize site performance, boost PageSpeed, and serve a faster website with this simple site optimization tool from SolidWP. Easy page caching setup will accelerate your site in minutes with only a couple of clicks.
  * Author: SolidWP
  * Author URI: https://go.solidwp.com/performance-author
- * Version: 1.7.1
+ * Version: 1.8.0
  * Text Domain: solid-performance
  * Domain Path: /lang
  * License: GPLv2-or-later
@@ -30,16 +30,24 @@ require_once __DIR__ . '/src/functions/config.php';
 
 define( 'SWPSP_PLUGIN_FILE', __FILE__ );
 
-// Get the plugin's singleton instance and fully initialize the container definitions.
-$core = swpsp_plugin()->init();
+// Get the plugin's singleton instance.
+$core = swpsp_plugin();
+
+add_action(
+	'plugins_loaded',
+	static function () use ( $core ): void {
+		// Fully boot the plugin and its service providers.
+		$core->init();
+	}
+);
 
 /**
  * Fires when the SolidWP Performance plugin is loaded.
  *
- * @since TBD
+ * @since 1.3.3
  */
 do_action( 'solidwp/performance/bootstrap_file_loaded' );
 
-register_activation_hook( __FILE__, new Activator( $core->container() ) );
-register_deactivation_hook( __FILE__, new Deactivator( $core->container() ) );
+register_activation_hook( __FILE__, Activator::callback() );
+register_deactivation_hook( __FILE__, Deactivator::callback() );
 register_uninstall_hook( __FILE__, [ Uninstaller::class, 'uninstall' ] );

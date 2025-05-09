@@ -1,26 +1,26 @@
 <?php
 /**
- * Represents an .htaccess file.
+ * Represents our nginx.conf file.
  *
  * @package SolidWP\Performance
  */
 
 declare( strict_types=1 );
 
-namespace SolidWP\Performance\Cache_Delivery\Htaccess;
+namespace SolidWP\Performance\Cache_Delivery\Nginx;
 
 use RuntimeException;
 use SolidWP\Performance\Cache_Delivery\Contracts\Config_File;
 
 /**
- * Represents an .htaccess file.
+ * Represents our nginx.conf file.
  *
  * @package SolidWP\Performance
  */
-class Htaccess_File extends Config_File {
+class Nginx_Conf_File extends Config_File {
 
 	/**
-	 * Get the server path to the .htaccess file.
+	 * Get the server path to the nginx.conf file.
 	 *
 	 * @throws RuntimeException If we can't find the document root.
 	 *
@@ -33,7 +33,7 @@ class Htaccess_File extends Config_File {
 
 		$home_path = swpsp_get_document_root();
 
-		$this->filepath = $home_path . '.htaccess';
+		$this->filepath = $home_path . 'swpsp-nginx.conf';
 
 		return $this->filepath;
 	}

@@ -11,9 +11,9 @@ namespace SolidWP\Performance\Cache_Delivery\Htaccess;
 
 use SolidWP\Performance\Cache_Delivery\Cache_Delivery_Type;
 use SolidWP\Performance\Config\Config;
-use SolidWP\Performance\Cache_Delivery\Htaccess\Contracts\Writable;
-use SolidWP\Performance\Cache_Delivery\Htaccess\Contracts\Readable;
-use SolidWP\Performance\Cache_Delivery\Htaccess\Exceptions\HtaccessReadException;
+use SolidWP\Performance\Cache_Delivery\Contracts\Writable;
+use SolidWP\Performance\Cache_Delivery\Contracts\Readable;
+use SolidWP\Performance\Cache_Delivery\Exceptions\CacheDeliveryReadException;
 use SolidWP\Performance\Psr\Log\LoggerInterface;
 use SolidWP\Performance\View\Exceptions\FileNotFoundException;
 
@@ -146,7 +146,7 @@ final class Manager {
 			}
 
 			return $this->writer->write( $modified );
-		} catch ( HtaccessReadException | FileNotFoundException $e ) {
+		} catch ( CacheDeliveryReadException | FileNotFoundException $e ) {
 			$this->logger->error(
 				'Error adding htaccess rules',
 				[
@@ -174,7 +174,7 @@ final class Manager {
 			}
 
 			return $this->writer->write( $removed );
-		} catch ( HtaccessReadException $e ) {
+		} catch ( CacheDeliveryReadException $e ) {
 			$this->logger->error(
 				'Error removing htaccess rules',
 				[
@@ -196,7 +196,7 @@ final class Manager {
 			$existing = $this->reader->read();
 
 			return $this->modifier->has_rules( $existing );
-		} catch ( HtaccessReadException $e ) {
+		} catch ( CacheDeliveryReadException $e ) {
 			return false;
 		}
 	}

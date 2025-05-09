@@ -10,7 +10,7 @@ declare( strict_types=1 );
 namespace SolidWP\Performance\WP_CLI\Commands;
 
 use SolidWP\Performance\Cache_Delivery\Cache_Delivery_Type;
-use SolidWP\Performance\Cache_Delivery\Htaccess\Manager;
+use SolidWP\Performance\Cache_Delivery\Manager_Collection;
 use SolidWP\Performance\Config\Config;
 use SolidWP\Performance\WP_CLI\Contracts;
 use WP_CLI;
@@ -25,9 +25,9 @@ final class Cache_Method extends Contracts\Command {
 	private const FLAG_PORCELAIN = 'porcelain';
 
 	/**
-	 * @var Manager
+	 * @var Manager_Collection
 	 */
-	private Manager $htaccess;
+	private Manager_Collection $manager_collection;
 
 	/**
 	 * @var Config
@@ -35,12 +35,15 @@ final class Cache_Method extends Contracts\Command {
 	private Config $config;
 
 	/**
-	 * @param Manager $htaccess The htaccess manager.
-	 * @param Config  $config The config object.
+	 * @param Manager_Collection $manager_collection The cache delivery collection.
+	 * @param Config             $config The config object.
 	 */
-	public function __construct( Manager $htaccess, Config $config ) {
-		$this->htaccess = $htaccess;
-		$this->config   = $config;
+	public function __construct(
+		Manager_Collection $manager_collection,
+		Config $config
+	) {
+		$this->manager_collection = $manager_collection;
+		$this->config             = $config;
 
 		parent::__construct();
 	}
@@ -85,11 +88,12 @@ final class Cache_Method extends Contracts\Command {
 	 * ## OPTIONS
 	 *
 	 * <method>
-	 * : The cache delivery method, e.g. php, htaccess.
+	 * : The cache delivery method, e.g. php, htaccess, nginx.
 	 * ---
 	 * options:
 	 *  - php
 	 *  - htaccess
+	 *  - nginx
 	 * ---
 	 * ## EXAMPLES
 	 *
@@ -128,11 +132,25 @@ final class Cache_Method extends Contracts\Command {
 		if ( $method === Cache_Delivery_Type::HTACCESS ) {
 			WP_CLI::line( 'Force adding Solid Performance htaccess rules...' );
 
-			if ( ! $this->htaccess->force_add_rules() ) {
+			$htaccess_manager = $this->manager_collection->get( Cache_Delivery_Type::HTACCESS );
+
+			if ( ! $htaccess_manager->force_add_rules() ) {
 				WP_CLI::error( 'Failed to add Solid Performance htaccess rules.' );
 
 				return self::ERROR;
 			}
+		} elseif ( $method === Cache_Delivery_Type::NGINX ) {
+			WP_CLI::line( 'Generating nginx.conf...' );
+
+			$nginx_manager = $this->manager_collection->get( Cache_Delivery_Type::NGINX );
+
+			if ( ! $nginx_manager->add() ) {
+				WP_CLI::error( 'Failed to write Solid Performance nginx.conf' );
+
+				return self::ERROR;
+			}
+
+			WP_CLI::line( sprintf( 'nginx.conf saved to: %s', $nginx_manager->path() ) );
 		}
 
 		WP_CLI::success( sprintf( 'Cache Delivery Method Set: %s.', $method ) );

@@ -240,6 +240,11 @@ final class Core {
 	private function get_plugin_version(): string {
 		$content = file_get_contents( $this->plugin_file, false, null, 0, 8 * KB_IN_BYTES );
 
+		// Prevent race condition if the solid-performance file is already deleted.
+		if ( ! $content ) {
+			return '0.0.0';
+		}
+
 		$pattern = '/^ \* Version:\s*(.+)$/m';
 
 		if ( preg_match( $pattern, $content, $matches ) ) {

@@ -1,13 +1,13 @@
 <?php
 /**
- * The .htaccess reader.
+ * The swpsp-nginx.conf reader.
  *
  * @package SolidWP\Performance
  */
 
 declare( strict_types=1 );
 
-namespace SolidWP\Performance\Cache_Delivery\Htaccess;
+namespace SolidWP\Performance\Cache_Delivery\Nginx;
 
 use RuntimeException;
 use SolidWP\Performance\Cache_Delivery\Contracts\Readable;
@@ -15,16 +15,16 @@ use SolidWP\Performance\Cache_Delivery\Exceptions\CacheDeliveryReadException;
 use SolidWP\Performance\Filesystem\Filesystem;
 
 /**
- * The .htaccess reader.
+ * The swpsp-nginx.conf reader.
  *
  * @package SolidWP\Performance
  */
 final class Reader implements Readable {
 
 	/**
-	 * @var Htaccess_File
+	 * @var Nginx_Conf_File
 	 */
-	private Htaccess_File $htaccess;
+	private Nginx_Conf_File $nginx_conf;
 
 	/**
 	 * @var Filesystem
@@ -32,31 +32,31 @@ final class Reader implements Readable {
 	private Filesystem $filesystem;
 
 	/**
-	 * @param Htaccess_File $htaccess The htaccess file object.
-	 * @param Filesystem    $filesystem The filesystem component.
+	 * @param Nginx_Conf_File $nginx_conf The nginx.conf file object.
+	 * @param Filesystem      $filesystem The filesystem component.
 	 */
 	public function __construct(
-		Htaccess_File $htaccess,
+		Nginx_Conf_File $nginx_conf,
 		Filesystem $filesystem
 	) {
-		$this->htaccess   = $htaccess;
+		$this->nginx_conf = $nginx_conf;
 		$this->filesystem = $filesystem;
 	}
 
 	/**
-	 * Acquire a read lock and read the contents of the .htaccess file.
+	 * Acquire a read lock and read the contents of the swpsp-nginx.conf file.
 	 *
-	 * @throws CacheDeliveryReadException When we are unable to open or lock the .htaccess file for reading.
+	 * @throws CacheDeliveryReadException If we are unable to open or lock the swpsp-nginx.conf file for reading.
 	 *
 	 * @return string
 	 */
 	public function read(): string {
 		try {
-			if ( ! $this->htaccess->exists() ) {
+			if ( ! $this->nginx_conf->exists() ) {
 				return '';
 			}
 
-			return $this->filesystem->read( $this->htaccess->get_file_path() );
+			return $this->filesystem->read( $this->nginx_conf->get_file_path() );
 		} catch ( RuntimeException $e ) {
 			throw new CacheDeliveryReadException( $e->getMessage(), $e->getCode(), $e );
 		}
