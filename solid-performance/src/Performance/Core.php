@@ -36,6 +36,7 @@ final class Core {
 	public const PLUGIN_URL          = 'solid_performance.plugin_url';
 	public const PLUGIN_BASENAME     = 'solid_performance.plugin_basename';
 	public const PLUGIN_VERSION      = 'solid_performance.plugin_version';
+	public const CACHE_DIR           = 'solid_performance.cache_dir';
 	public const ADVANCED_CACHE_PATH = 'solid_performance.advanced_cache_path';
 
 	/**
@@ -66,6 +67,7 @@ final class Core {
 		Config\Provider::class,
 		View\Provider::class,
 		Cache_Delivery\Provider::class,
+		Page_Cache\Request_Context\Provider::class,
 		Page_Cache\Meta\Provider::class,
 		Page_Cache\Provider::class,
 
@@ -123,15 +125,14 @@ final class Core {
 		// Set container variables available to pre bootstrap providers.
 		$this->container->setVar( self::PLUGIN_FILE, $this->plugin_file );
 		$this->container->setVar( self::PLUGIN_VERSION, $this->get_plugin_version() );
+		$this->container->setVar( self::CACHE_DIR, WP_CONTENT_DIR . '/cache/solid-performance' );
 		$this->container->setVar( self::ADVANCED_CACHE_PATH, WP_CONTENT_DIR . '/advanced-cache.php' );
 
 		// Set the cache dir early so all providers can use it.
 		$this->register_mandatory_definitions();
 
 		// Register pre bootstrap providers early.
-		foreach ( $this->early_providers as $provider ) {
-			$this->container->get( $provider )->register();
-		}
+		$this->register_early_providers();
 	}
 
 	/**
@@ -158,6 +159,18 @@ final class Core {
 		}
 
 		return self::$instance;
+	}
+
+	/**
+	 * Reload service provider container definitions.
+	 *
+	 * @return Core
+	 */
+	public function reload(): Core {
+		$this->register_mandatory_definitions();
+		$this->register_early_providers();
+
+		return $this->init();
 	}
 
 	/**
@@ -227,7 +240,18 @@ final class Core {
 	private function register_mandatory_definitions(): void {
 		$this->container->when( Cache_Path::class )
 						->needs( '$cache_dir' )
-						->give( WP_CONTENT_DIR . '/cache/solid-performance' );
+						->give( static fn ( $c ) => $c->get( self::CACHE_DIR ) );
+	}
+
+	/**
+	 * Register early loaded bootstrap providers.
+	 *
+	 * @return void
+	 */
+	private function register_early_providers(): void {
+		foreach ( $this->early_providers as $provider ) {
+			$this->container->get( $provider )->register( $this->container );
+		}
 	}
 
 	/**

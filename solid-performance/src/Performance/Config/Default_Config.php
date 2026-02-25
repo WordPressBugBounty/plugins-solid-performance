@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Contains the default configuration items.
  *
- * @template T of array{page_cache: array{cache_dir: string, debug: bool, enabled: bool, expiration: int, exclusions: string[], compression: array{enabled: bool}, preload: array{high_performance_mode: bool}, lazy_loading: array{enabled: bool}, cache_delivery: array{method: string}, image_transformation: array{enabled: bool, processor: string}}}
+ * @template T of array{page_cache: array{cache_dir: string, debug: bool, enabled: bool, expiration: int, exclusions: string[], compression: array{enabled: bool}, preload: array{high_performance_mode: bool}, lazy_loading: array{enabled: bool}, cache_delivery: array{method: string}, image_transformation: array{enabled: bool, processor: string}, mobile_cache: array{enabled: bool}}}
  *
  * @see Provider::register()
  *
@@ -34,7 +34,7 @@ final class Default_Config {
 	private array $defaults;
 
 	/**
-	 * @param  array<string, mixed> $defaults The default config items.
+	 * @param array<string, mixed> $defaults The default config items.
 	 */
 	public function __construct( array $defaults ) {
 		$this->defaults = $defaults;
@@ -43,7 +43,7 @@ final class Default_Config {
 	/**
 	 * Get the value of a default config item.
 	 *
-	 * @param  string|null $key  The config key, if no key we'll return all items.
+	 * @param string|null $key  The config key, if no key we'll return all items.
 	 *
 	 * @return mixed|T
 	 */

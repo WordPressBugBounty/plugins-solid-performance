@@ -270,6 +270,16 @@ final class Provider extends Service_Provider {
 	 * @return void
 	 */
 	private function register_settings_purger(): void {
+		$this->container->when( Settings_Purger::class )
+						->needs( '$watch_list' )
+						->give(
+							// Add any settings keys that when changed, will flush the entire cache.
+							static fn(): array => [
+								'page_cache.lazy_loading.enabled',
+								'page_cache.mobile_cache.enabled',
+							]
+						);
+
 		add_action(
 			'solidwp/performance/settings/changed',
 			$this->container->callback( Settings_Purger::class, 'on_settings_change' ),

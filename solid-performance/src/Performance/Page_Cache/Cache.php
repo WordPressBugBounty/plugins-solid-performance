@@ -169,7 +169,7 @@ class Cache {
 		// Add custom headers.
 		$header->set( 'Last-Modified', gmdate( 'D, d M Y H:i:s', $mod_time ) . ' GMT' );
 		$header->set( 'X-Cache-Age', time() - $mod_time );
-		$header->set( 'X-Cache', 'HIT' );
+		$header->set( 'X-Cache', sprintf( 'HIT (%s)', $this->handler->is_mobile() ? 'mobile' : 'desktop' ) );
 		$header->set( 'X-Cached-By', 'Solid Performance' );
 
 		if ( ! $header->has( 'Vary' ) ) {

@@ -17,6 +17,7 @@ use SolidWP\Performance\Page_Cache\Compression\Contracts\Compressible;
 use SolidWP\Performance\Page_Cache\Compression\Exceptions\CompressionFailedException;
 use SolidWP\Performance\Page_Cache\Meta\Exceptions\MetadataNotWritableException;
 use SolidWP\Performance\Page_Cache\Meta\Meta_Manager;
+use SolidWP\Performance\Page_Cache\Request_Context\Device\Contracts\Device_Context;
 
 /**
  * Handles managing cache files.
@@ -56,12 +57,18 @@ final class Cache_Handler {
 	private Meta_Manager $meta_manager;
 
 	/**
-	 * @param Collection   $compressors The collection of compression algorithms.
-	 * @param Request      $request The current request.
-	 * @param Debug        $debug The debugger.
-	 * @param Expiration   $expiration The expiration manager.
-	 * @param Cache_Path   $cache_path The server path to the cache directory.
-	 * @param Meta_Manager $meta_manager The meta manager.
+	 * @var Device_Context
+	 */
+	private Device_Context $device_context;
+
+	/**
+	 * @param  Collection     $compressors  The collection of compression algorithms.
+	 * @param  Request        $request  The current request.
+	 * @param  Debug          $debug  The debugger.
+	 * @param  Expiration     $expiration  The expiration manager.
+	 * @param  Cache_Path     $cache_path  The server path to the cache directory.
+	 * @param  Meta_Manager   $meta_manager  The meta manager.
+	 * @param  Device_Context $device_context The device context.
 	 */
 	public function __construct(
 		Collection $compressors,
@@ -69,14 +76,16 @@ final class Cache_Handler {
 		Debug $debug,
 		Expiration $expiration,
 		Cache_Path $cache_path,
-		Meta_Manager $meta_manager
+		Meta_Manager $meta_manager,
+		Device_Context $device_context
 	) {
-		$this->compressor   = $compressors->get_by_header( (string) $request->header->get( 'accept-encoding' ) );
-		$this->request      = $request;
-		$this->debug        = $debug;
-		$this->expiration   = $expiration;
-		$this->cache_path   = $cache_path;
-		$this->meta_manager = $meta_manager;
+		$this->compressor     = $compressors->get_by_header( (string) $request->header->get( 'accept-encoding' ) );
+		$this->request        = $request;
+		$this->debug          = $debug;
+		$this->expiration     = $expiration;
+		$this->cache_path     = $cache_path;
+		$this->meta_manager   = $meta_manager;
+		$this->device_context = $device_context;
 	}
 
 	/**
@@ -122,7 +131,7 @@ final class Cache_Handler {
 	}
 
 	/**
-	 * Converts a URL into a directory structure.
+	 * Converts a URL into a directory structure, with dynamic mobile cache file support.
 	 *
 	 * All cached requests will be saved to a directory structure that matches
 	 * the relative URL. This provides a way to consistently get the cached
@@ -133,10 +142,11 @@ final class Cache_Handler {
 	 * @return string
 	 */
 	public function get_file_path(): string {
-		$path = $this->cache_path->get_path_from_url( $this->request->uri );
-		$ext  = $this->compressor->extension();
+		$path          = $this->cache_path->get_path_from_url( $this->request->uri );
+		$device_suffix = $this->device_context->suffix();
+		$ext           = $this->compressor->extension();
 
-		return "$path.$ext";
+		return "{$path}{$device_suffix}.{$ext}";
 	}
 
 	/**
@@ -155,6 +165,15 @@ final class Cache_Handler {
 	 */
 	public function compressor(): Compressible {
 		return $this->compressor;
+	}
+
+	/**
+	 * Whether a mobile device is making this request.
+	 *
+	 * @return bool
+	 */
+	public function is_mobile(): bool {
+		return (bool) $this->device_context->suffix();
 	}
 
 	/**

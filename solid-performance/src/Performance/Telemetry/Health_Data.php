@@ -221,6 +221,11 @@ class Health_Data {
 					'value' => ucfirst( (string) swpsp_config_get( 'page_cache.image_transformation.processor' ) ),
 					'debug' => swpsp_config_get( 'page_cache.image_transformation.processor' ),
 				],
+				'mobile_cache'                   => [
+					'label' => esc_html__( 'Mobile cache', 'solid-performance' ),
+					'value' => swpsp_config_get( 'page_cache.mobile_cache.enabled' ) ? esc_html__( 'Enabled', 'solid-performance' ) : esc_html__( 'Disabled', 'solid-performance' ),
+					'debug' => (bool) swpsp_config_get( 'page_cache.mobile_cache.enabled' ),
+				],
 			],
 		];
 

@@ -16,7 +16,6 @@ use SolidWP\Performance\Contracts\Service_Provider;
 use SolidWP\Performance\Core;
 use SolidWP\Performance\Cache_Delivery\Cache_Delivery_Type;
 use SolidWP\Performance\Image_Transformation\Processor_Type;
-use SolidWP\Performance\Page_Cache\Cache_Path;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -62,7 +61,7 @@ final class Provider extends Service_Provider {
 							// Configure the default configuration items here.
 							static fn( $c ): array => [
 								'page_cache' => [
-									'cache_dir'            => $c->get( Cache_Path::class )->get_cache_dir(),
+									'cache_dir'            => $c->get( Core::CACHE_DIR ),
 									'debug'                => false,
 									'enabled'              => true,
 									'expiration'           => 86400, // One day in seconds.
@@ -82,6 +81,9 @@ final class Provider extends Service_Provider {
 									'image_transformation' => [
 										'enabled'   => false,
 										'processor' => Processor_Type::CLOUDFLARE,
+									],
+									'mobile_cache'         => [
+										'enabled' => false,
 									],
 								],
 							]

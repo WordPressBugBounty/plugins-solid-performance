@@ -35,14 +35,31 @@ $htaccess = <<<RULES
 RewriteEngine On
 RewriteBase $base
 
+# ----------------------------------
+# Default env values
+# ----------------------------------
 RewriteRule .* - [E=SWPSP_SCHEME:-http]
 RewriteRule .* - [E=SWPSP_EXT:html]
+RewriteRule .* - [E=SWPSP_DEVICE:]
+RewriteRule .* - [E=SWPSP_DEVICE_LABEL:desktop]
 
+# ----------------------------------
+# Scheme detection
+# ----------------------------------
 RewriteCond %{HTTPS} on [OR]
 RewriteCond %{SERVER_PORT} ^443$ [OR]
 RewriteCond %{HTTP:X-Forwarded-Proto} https
 RewriteRule .* - [E=SWPSP_SCHEME:-https]
 
+# ----------------------------------
+# Mobile detection
+# ----------------------------------
+RewriteCond %{HTTP_USER_AGENT} "(android.*mobile|iphone|ipod|windows phone|blackberry|bb10|opera mini|mobile.*safari)" [NC]
+RewriteRule .* - [E=SWPSP_DEVICE:-mobile,E=SWPSP_DEVICE_LABEL:mobile]
+
+# ----------------------------------
+# Gzip detection
+# ----------------------------------
 <IfModule mod_deflate.c>
 	<IfModule mod_mime.c>
 	  AddType text/html .gz
@@ -64,30 +81,35 @@ RewriteRule .* - [E=SWPSP_SCHEME:-https]
 
 # Fallback if the extension is gz but a gz file was never created, check for a .html extension
 RewriteCond %{ENV:SWPSP_EXT} =gz
-RewriteCond "%{DOCUMENT_ROOT}$base$cache_path/%{HTTP_HOST}/%{REQUEST_URI}/index%{ENV:SWPSP_SCHEME}.gz" !-f
-RewriteCond "$site_cache_path/%{REQUEST_URI}/index%{ENV:SWPSP_SCHEME}.gz" !-f
+RewriteCond "%{DOCUMENT_ROOT}$base$cache_path/%{HTTP_HOST}/%{REQUEST_URI}/index%{ENV:SWPSP_SCHEME}%{ENV:SWPSP_DEVICE}.gz" !-f
+RewriteCond "$site_cache_path/%{REQUEST_URI}/index%{ENV:SWPSP_SCHEME}%{ENV:SWPSP_DEVICE}.gz" !-f
 RewriteRule .* - [E=SWPSP_EXT:html]
 
+# ----------------------------------
+# Serve cache
+# ----------------------------------
 RewriteCond %{REQUEST_METHOD} GET
 RewriteCond %{QUERY_STRING} ^$
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{HTTP:Cookie} !(wordpress_logged_in_.+|wp-postpass_|wptouch_switch_toggle|comment_author_|comment_author_email_) [NC]
 RewriteCond %{REQUEST_URI} !^(/(?:.+/)?feed(?:/(?:.+/?)?)?$|/(?:.+/)?embed/|/(index.php/)?(.*)wp-json(/.*|$))$ [NC]
-RewriteCond "%{DOCUMENT_ROOT}$base$cache_path/%{HTTP_HOST}/%{REQUEST_URI}/index%{ENV:SWPSP_SCHEME}.%{ENV:SWPSP_EXT}" -f [OR]
-RewriteCond "$site_cache_path/%{REQUEST_URI}/index%{ENV:SWPSP_SCHEME}.%{ENV:SWPSP_EXT}" -f
-RewriteRule .* "$base$cache_path/%{HTTP_HOST}/%{REQUEST_URI}/index%{ENV:SWPSP_SCHEME}.%{ENV:SWPSP_EXT}" [L]
+RewriteCond "%{DOCUMENT_ROOT}$base$cache_path/%{HTTP_HOST}/%{REQUEST_URI}/index%{ENV:SWPSP_SCHEME}%{ENV:SWPSP_DEVICE}.%{ENV:SWPSP_EXT}" -f [OR]
+RewriteCond "$site_cache_path/%{REQUEST_URI}/index%{ENV:SWPSP_SCHEME}%{ENV:SWPSP_DEVICE}.%{ENV:SWPSP_EXT}" -f
+RewriteRule .* "$base$cache_path/%{HTTP_HOST}/%{REQUEST_URI}/index%{ENV:SWPSP_SCHEME}%{ENV:SWPSP_DEVICE}.%{ENV:SWPSP_EXT}" [L]
 </IfModule>
 
-# Detect if a cached file was served and set the proper headers
+# ----------------------------------
+# Headers when cached file served
+# ----------------------------------
 <IfModule mod_headers.c>
-    <FilesMatch "index-(https|http)\.($extensions_regex)$">
+     <FilesMatch "index-(https|http)(-mobile)?\.($extensions_regex)$">
         FileETag None
         Header unset ETag
         Header unset Pragma
         Header append Cache-Control "public"
         Header append Vary: Accept-Encoding
         Header always set X-Cached-By "Solid Performance (htaccess)"
-        Header set X-Cache "HIT"
+        Header set X-Cache "HIT (%{SWPSP_DEVICE_LABEL}e)"
     </FilesMatch>
 </IfModule>
 

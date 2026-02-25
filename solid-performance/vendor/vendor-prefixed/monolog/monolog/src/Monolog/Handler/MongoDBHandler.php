@@ -11,12 +11,13 @@
 
 namespace SolidWP\Performance\Monolog\Handler;
 
+use MongoDB\Client;
+use MongoDB\Collection;
 use MongoDB\Driver\BulkWrite;
 use MongoDB\Driver\Manager;
-use MongoDB\Client;
-use SolidWP\Performance\Monolog\Logger;
 use SolidWP\Performance\Monolog\Formatter\FormatterInterface;
 use SolidWP\Performance\Monolog\Formatter\MongoDBFormatter;
+use SolidWP\Performance\Monolog\Logger;
 
 /**
  * Logs to a MongoDB database.
@@ -33,12 +34,12 @@ use SolidWP\Performance\Monolog\Formatter\MongoDBFormatter;
  */
 class MongoDBHandler extends AbstractProcessingHandler
 {
-    /** @var \MongoDB\Collection */
+    /** @var Collection */
     private $collection;
     /** @var Client|Manager */
     private $manager;
-    /** @var string */
-    private $namespace;
+    /** @var string|null */
+    private $namespace = null;
 
     /**
      * Constructor.
@@ -54,7 +55,7 @@ class MongoDBHandler extends AbstractProcessingHandler
         }
 
         if ($mongodb instanceof Client) {
-            $this->collection = $mongodb->selectCollection($database, $collection);
+            $this->collection = method_exists($mongodb, 'getCollection') ? $mongodb->getCollection($database, $collection) : $mongodb->selectCollection($database, $collection);
         } else {
             $this->manager = $mongodb;
             $this->namespace = $database . '.' . $collection;

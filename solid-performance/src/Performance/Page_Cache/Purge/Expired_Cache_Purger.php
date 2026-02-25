@@ -110,6 +110,11 @@ final class Expired_Cache_Purger {
 					continue;
 				}
 
+				$this->logger->debug(
+					'Preparing to delete cache file: {filename}',
+					[ 'filename' => $file->getFilename() ]
+				);
+
 				try {
 					$this->filesystem->remove( $file->getPathname() );
 					++$deleted_count;

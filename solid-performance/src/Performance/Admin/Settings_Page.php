@@ -213,6 +213,15 @@ class Settings_Page {
 											],
 										],
 									],
+									'mobile_cache'         => [
+										'type'       => 'object',
+										'properties' => [
+											'enabled' => [
+												'type' => 'boolean',
+												'description' => esc_html__( 'Store separate caches for mobiles devices.', 'solid-performance' ),
+											],
+										],
+									],
 								],
 							],
 						],

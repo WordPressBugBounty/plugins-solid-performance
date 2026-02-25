@@ -17,6 +17,7 @@ use SolidWP\Performance\Page_Cache\Meta\Meta_Manager;
 use SolidWP\Performance\Page_Cache\Purge\Batch\Permalink;
 use SolidWP\Performance\Page_Cache\Purge\Enums\Purge_Strategy;
 use SolidWP\Performance\Page_Cache\Purge\Traits\With_Permalink;
+use SolidWP\Performance\Page_Cache\Request_Context\Device\Resolver\Contracts\Device_Resolver;
 use WP_Filesystem_Direct;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -97,7 +98,15 @@ class Purge {
 		foreach ( $this->compressors->enabled() as $compressor ) {
 			$ext = $compressor->extension();
 
-			$this->filesystem->delete( "$path.$ext" );
+			// Delete desktop version.
+			$this->filesystem->delete( "$path.$ext", false, 'f' );
+
+			// Delete mobile version.
+			$this->filesystem->delete(
+				sprintf( "$path%s.$ext", Device_Resolver::MOBILE_SUFFIX ),
+				false,
+				'f'
+			);
 		}
 
 		// Delete cache metadata.

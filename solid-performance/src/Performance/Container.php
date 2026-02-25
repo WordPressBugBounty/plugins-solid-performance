@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @method self when(string $class)
  * @method self needs(string $id)
  * @method void give(mixed $implementation)
- * @method void callback(string|object $id, string $method)
+ * @method mixed callback(string|object $id, string $method)
  * @method void offsetUnset(string $id)
  */
 class Container implements ContainerInterface {

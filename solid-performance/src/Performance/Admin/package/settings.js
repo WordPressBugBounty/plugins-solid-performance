@@ -331,6 +331,20 @@ const SolidPerformanceSettings = () => {
 																},
 															})}
 													/>
+													<ToggleControl
+														label={__('Mobile Cache', 'solid-performance')}
+														checked={performanceSettings?.page_cache?.mobile_cache?.enabled ||
+															false}
+														help={__('Store separate caches for mobiles devices.', 'solid-performance')}
+														onChange={( value ) => setState(
+															{
+																page_cache: {
+																	mobile_cache: {
+																		enabled: value
+																	}
+																},
+															})}
+													/>
 													<TextareaControl
 														label={__('Cache Exclusions', 'solid-performance')}
 														help={__(

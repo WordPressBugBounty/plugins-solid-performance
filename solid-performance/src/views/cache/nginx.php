@@ -37,6 +37,25 @@ set \$swpsp_cache_try "@html_cache";
 # This supports sub directories automatically, e.g. root "/app/wordpress"; will look in /app/wordpress/wp-content/...
 set \$swpsp_cache_dir "/{$cache_path}";
 
+# -------------------------------------------------------
+# Device detection (phones only)
+# Desktop = default (empty suffix)
+# -------------------------------------------------------
+
+set \$swpsp_device "";
+
+if (\$http_user_agent ~* "(android.*mobile|iphone|ipod|windows phone|blackberry|bb10|opera mini|mobile.*safari)") {
+	set \$swpsp_device "-mobile";
+}
+
+set \$swpsp_cache_label "desktop";
+
+if (\$swpsp_device = "-mobile") {
+    set \$swpsp_cache_label "mobile";
+}
+
+# -------------------------------------------------------
+
 # Extra checks for scheme.
 if (\$https = on) {
 	set \$swpsp_scheme https;
@@ -81,6 +100,10 @@ location / {
 	try_files \$uri \$swpsp_cache_try;
 }
 
+# -------------------------------------------------------
+# GZIP CACHE
+# -------------------------------------------------------
+
 # Attempt to serve our already compressed gzip file without having Nginx compress it again.
 # This will automatically try the @html_cache location if no file is found.
 location @gz_cache {
@@ -101,13 +124,17 @@ location @gz_cache {
 
   add_header Content-Encoding gzip;
   add_header X-Cached-By "Solid Performance (nginx)";
-  add_header X-Cache "HIT";
+  add_header X-Cache "HIT (\$swpsp_cache_label)";
   add_header X-Cache-Encoding "GZIP";
   add_header Cache-Control "public";
   add_header Vary "Accept-Encoding";
 
-  rewrite ^ "\${swpsp_cache_dir}/\${host}\${swpsp_cache_uri}/index-\${swpsp_scheme}.gz" break;
+  rewrite ^ "\${swpsp_cache_dir}/\${host}\${swpsp_cache_uri}/index-\${swpsp_scheme}\${swpsp_device}.gz" break;
 }
+
+# -------------------------------------------------------
+# HTML CACHE
+# -------------------------------------------------------
 
 # Attempt to serve a fallback html cache file, if it exits.
 location @html_cache {
@@ -124,12 +151,12 @@ location @html_cache {
   if_modified_since exact;
 
   add_header X-Cached-By "Solid Performance (nginx)";
-  add_header X-Cache "HIT";
+  add_header X-Cache "HIT (\$swpsp_cache_label)";
   add_header X-Cache-Encoding "HTML";
   add_header Cache-Control "public";
   add_header Vary "Accept-Encoding";
 
-  rewrite ^ "\${swpsp_cache_dir}/\${host}\${swpsp_cache_uri}/index-\${swpsp_scheme}.html" break;
+  rewrite ^ "\${swpsp_cache_dir}/\${host}\${swpsp_cache_uri}/index-\${swpsp_scheme}\${swpsp_device}.html" break;
 }
 
 # The default WordPress location.

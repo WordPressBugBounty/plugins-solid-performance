@@ -25,10 +25,20 @@ final class Settings_Purger {
 	private Batch_Purger $batch_purger;
 
 	/**
-	 * @param Batch_Purger $batch_purger The batch purger.
+	 * @var array<string, int>
 	 */
-	public function __construct( Batch_Purger $batch_purger ) {
-		$this->batch_purger = $batch_purger;
+	private array $watch_list_keys;
+
+	/**
+	 * @param Batch_Purger $batch_purger The batch purger.
+	 * @param string[]     $watch_list  List of dot-notated paths to monitor.
+	 */
+	public function __construct(
+		Batch_Purger $batch_purger,
+		array $watch_list
+	) {
+		$this->batch_purger    = $batch_purger;
+		$this->watch_list_keys = array_flip( $watch_list );
 	}
 
 	/**
@@ -42,10 +52,12 @@ final class Settings_Purger {
 	 * @return void
 	 */
 	public function on_settings_change( array $old_val, array $new_val ): void {
-		$old_lazy_load = Arr::get( $old_val, 'page_cache.lazy_loading.enabled' );
-		$new_lazy_load = Arr::get( $new_val, 'page_cache.lazy_loading.enabled' );
+		$old_flat = Arr::dot( $old_val );
+		$new_flat = Arr::dot( $new_val );
 
-		if ( $old_lazy_load === $new_lazy_load ) {
+		$changes = array_diff_assoc( $new_flat, $old_flat );
+
+		if ( empty( array_intersect_key( $changes, $this->watch_list_keys ) ) ) {
 			return;
 		}
 

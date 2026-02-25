@@ -15,6 +15,7 @@ use DateTimeImmutable;
 use SolidWP\Performance\Config\Config;
 use SolidWP\Performance\Http\Request;
 use SolidWP\Performance\Page_Cache\Compression\Contracts\Compressible;
+use SolidWP\Performance\Page_Cache\Request_Context\Device\Resolver\Contracts\Device_Resolver;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -44,10 +45,20 @@ class Debug {
 	private Config $config;
 
 	/**
-	 * @param  Config $config  The config object.
+	 * @var Device_Resolver
 	 */
-	public function __construct( Config $config ) {
-		$this->config = $config;
+	private Device_Resolver $device_resolver;
+
+	/**
+	 * @param  Config          $config  The config object.
+	 * @param  Device_Resolver $device_resolver The device resolver.
+	 */
+	public function __construct(
+		Config $config,
+		Device_Resolver $device_resolver
+	) {
+		$this->config          = $config;
+		$this->device_resolver = $device_resolver;
 	}
 
 	/**
@@ -65,10 +76,12 @@ class Debug {
 			return '';
 		}
 
-		$date_time     = $this->get_timestamp();
-		$engine        = str_pad( 'Engine:', $this->pad ) . 'Disk';
-		$creation_time = str_pad( 'Creation Time:', $this->pad ) . $request->start . 's';
-		$host          = filter_var( $request->server['HTTP_HOST'], FILTER_SANITIZE_SPECIAL_CHARS );
+		$is_mobile       = $this->device_resolver->is_mobile() ? 'yes' : 'no';
+		$date_time       = $this->get_timestamp();
+		$engine          = str_pad( 'Engine:', $this->pad ) . 'Disk';
+		$creation_time   = str_pad( 'Creation Time:', $this->pad ) . $request->start . 's';
+		$is_mobile_cache = str_pad( 'Is Mobile Cache:', $this->pad ) . $is_mobile;
+		$host            = filter_var( $request->server['HTTP_HOST'], FILTER_SANITIZE_SPECIAL_CHARS );
 
 		$encoding    = $compressor->encoding() ?: 'None';
 		$compression = str_pad( 'Compression Algorithm:', $this->pad ) . $encoding;
@@ -91,6 +104,7 @@ Page cache debug info:
 $engine
 $creation_time
 $compression
+$is_mobile_cache
 
 Header Info:
 

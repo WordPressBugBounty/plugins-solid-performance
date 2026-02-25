@@ -89,7 +89,7 @@ class Batch_Limiter {
 		Preload_Mode_Manager $preload_mode_manager,
 		int $batch_size = 50,
 		float $max_load_per_core = 0.5,
-		float $decay = -0.4
+		float $decay = -0.9
 	) {
 		if ( $max_load_per_core < 0.1 ) {
 			throw new InvalidArgumentException( 'The $max_load_per_core argument cannot be below 0.1' );
