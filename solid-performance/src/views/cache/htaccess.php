@@ -108,7 +108,7 @@ RewriteRule .* "$base$cache_path/%{HTTP_HOST}/%{REQUEST_URI}/index%{ENV:SWPSP_SC
         Header unset Pragma
         Header append Cache-Control "public"
         Header append Vary: Accept-Encoding
-        Header always set X-Cached-By "Solid Performance (htaccess)"
+        Header always set X-Cached-By "Kadence Performance (htaccess)"
         Header set X-Cache "HIT (%{SWPSP_DEVICE_LABEL}e)"
     </FilesMatch>
 </IfModule>

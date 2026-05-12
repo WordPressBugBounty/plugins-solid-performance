@@ -1,5 +1,5 @@
 /**
- * Solid Performance Settings
+ * Kadence Performance Settings
  *
  */
 import { createRoot } from '@wordpress/element';

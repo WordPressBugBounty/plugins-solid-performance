@@ -1,5 +1,5 @@
 /**
- * Solid Performance Settings
+ * Kadence Performance Settings
  */
 import { __ } from '@wordpress/i18n';
 import { useState, useEffect } from 'react';

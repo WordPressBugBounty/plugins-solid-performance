@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Manages Solid Performance site-wide preloading.
+ * Manages Kadence Performance site-wide preloading.
  *
  * @package SolidWP\Performance
  */

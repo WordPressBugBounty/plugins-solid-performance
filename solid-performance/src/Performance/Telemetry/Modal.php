@@ -57,8 +57,8 @@ final class Modal {
 		$args['permissions_url']    = 'https://go.solidwp.com/solid-performance-opt-in-usage-sharing';
 		$args['tos_url']            = 'https://go.solidwp.com/solid-performance-terms-usage-modal';
 		$args['privacy_url']        = 'https://go.solidwp.com/solid-performance-privacy-usage-modal';
-		$args['plugin_logo_alt']    = 'Solid Performance Logo';
-		$args['plugin_name']        = 'Solid Performance';
+		$args['plugin_logo_alt']    = esc_attr__( 'Kadence Performance Logo', 'solid-performance' );
+		$args['plugin_name']        = esc_html__( 'Kadence Performance', 'solid-performance' );
 
 		$args['heading'] = sprintf(
 			// Translators: The plugin name.
@@ -78,11 +78,7 @@ final class Modal {
 	 *
 	 * @return string
 	 */
-	public function get_intro( string $user_name ): string {
-		return sprintf(
-			// Translators: The User's name.
-			esc_html__( 'Hi %s. SolidWP is dedicated to delivering top-notch services, and your input helps us deliver on that promise. By opting into our feedback program, you help enhance the Solid Performance experience for yourself and all of our users. When you opt in, you allow us to access certain data related to how you use our products, which we use responsibly to tailor our products to your needs. You will additionally receive updates, important product and marketing information, and exclusive offers via email. You may unsubscribe at any time. We take data privacy seriously and adhere to the highest standards respecting all relevant regulations and guidelines. To join and help shape the future of Solid Performance and StellarWP, simply click “Allow & Continue” below.', 'solid-performance' ),
-			$user_name,
-		);
+	public function get_intro( string $user_name ): string { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+		return esc_html__( 'Want to help shape the future of Kadence Performance? Opting in shares anonymous usage data with our team at Liquid Web, the company behind Kadence Performance, so we can keep building tools that work better for you. You\'ll also receive product updates and important announcements via email—unsubscribe any time. Click \'Allow & Continue\' below to join us.', 'solid-performance' );
 	}
 }

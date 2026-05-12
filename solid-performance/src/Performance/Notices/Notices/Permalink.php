@@ -54,7 +54,7 @@ final class Permalink {
 		$message = sprintf(
 			// translators: 1. Permalinks URL.
 			__(
-				'<strong>Solid Performance</strong> depends on a custom permalink structure. Please enable this in your <a href="%1$s">Permalink Settings</a> to begin speeding up your website.',
+				'<strong>Kadence Performance</strong> depends on a custom permalink structure. Please enable this in your <a href="%1$s">Permalink Settings</a> to begin speeding up your website.',
 				'solid-performance'
 			),
 			esc_url( admin_url( 'options-permalink.php' ) )

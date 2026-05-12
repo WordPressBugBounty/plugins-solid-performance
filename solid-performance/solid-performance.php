@@ -1,10 +1,10 @@
 <?php
 /**
- * Plugin Name: Solid Performance
- * Description: Optimize site performance, boost PageSpeed, and serve a faster website with this simple site optimization tool from SolidWP. Easy page caching setup will accelerate your site in minutes with only a couple of clicks.
- * Author: SolidWP
- * Author URI: https://go.solidwp.com/performance-author
- * Version: 1.9.0
+ * Plugin Name: Kadence Performance
+ * Description: Optimize site performance, boost PageSpeed, and serve a faster website with this simple site optimization tool from Kadence. Easy page caching setup will accelerate your site in minutes with only a couple of clicks.
+ * Author: Kadence
+ * Author URI: https://kadencewp.com
+ * Version: 2.0.0
  * Text Domain: solid-performance
  * Domain Path: /lang
  * License: GPLv2-or-later
@@ -42,7 +42,7 @@ add_action(
 );
 
 /**
- * Fires when the SolidWP Performance plugin is loaded.
+ * Fires when the Kadence Performance plugin is loaded.
  *
  * @since 1.3.3
  */

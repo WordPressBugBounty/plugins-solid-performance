@@ -99,7 +99,7 @@ final class Manager {
 		}
 
 		/**
-		 * Disable adding Solid Performance .htaccess rules.
+		 * Disable adding Kadence Performance .htaccess rules.
 		 *
 		 * @param bool $disabled True to disable.
 		 */

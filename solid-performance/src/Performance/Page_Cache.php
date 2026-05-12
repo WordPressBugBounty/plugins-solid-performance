@@ -1,6 +1,6 @@
 <?php
 /**
- * A set of methods that let other developers interact with Solid Performance.
+ * A set of methods that let other developers interact with Kadence Performance.
  *
  * @since 0.1.0
  *
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * A set of methods that let other developers interact with Solid Performance.
+ * A set of methods that let other developers interact with Kadence Performance.
  *
  * @since 0.1.0
  *

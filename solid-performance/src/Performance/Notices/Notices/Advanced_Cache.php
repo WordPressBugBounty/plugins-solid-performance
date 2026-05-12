@@ -58,9 +58,9 @@ final class Advanced_Cache {
 		}
 
 		$message = sprintf(
-			// translators: 1. Solid Performance Settings URL.
+			// translators: 1. Kadence Performance Settings URL.
 			__(
-				'<strong>Solid Performance is not caching!</strong> visit the <a href="%1$s">Settings Page</a> and regenerate the advanced-cache.php file under the <em>Advanced</em> tab.',
+				'<strong>Kadence Performance is not caching!</strong> visit the <a href="%1$s">Settings Page</a> and regenerate the advanced-cache.php file under the <em>Advanced</em> tab.',
 				'solid-performance'
 			),
 			esc_url( admin_url( 'options-general.php?page=swpsp-settings' ) )

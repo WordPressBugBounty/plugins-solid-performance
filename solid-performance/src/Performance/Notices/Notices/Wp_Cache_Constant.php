@@ -55,7 +55,7 @@ final class Wp_Cache_Constant {
 		$message = sprintf(
 			// translators: 1. define( 'WP_CACHE', true );.
 			__(
-				'<strong>Solid Performance is not caching!</strong> <code>%1$s</code> is missing or set to false in wp-config.php.',
+				'<strong>Kadence Performance is not caching!</strong> <code>%1$s</code> is missing or set to false in wp-config.php.',
 				'solid-performance'
 			),
 			'define( \'WP_CACHE\', true );'

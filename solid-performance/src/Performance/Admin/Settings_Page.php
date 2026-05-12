@@ -90,8 +90,8 @@ class Settings_Page {
 	 */
 	public function add_settings_page(): void {
 		$page = add_options_page(
-			__( 'Solid Performance', 'solid-performance' ),
-			__( 'Solid Performance', 'solid-performance' ),
+			__( 'Kadence Performance', 'solid-performance' ),
+			__( 'Kadence Performance', 'solid-performance' ),
 			'manage_options',
 			self::MENU_SLUG,
 			[ $this, 'build_settings_page' ],
@@ -130,7 +130,7 @@ class Settings_Page {
 			self::SETTINGS_SLUG,
 			[
 				'type'              => 'object',
-				'description'       => esc_html__( 'Solid Performance Settings', 'solid-performance' ),
+				'description'       => esc_html__( 'Kadence Performance Settings', 'solid-performance' ),
 				'sanitize_callback' => [ $this, 'sanitize_setting' ],
 				'default'           => [],
 				'show_in_rest'      => [

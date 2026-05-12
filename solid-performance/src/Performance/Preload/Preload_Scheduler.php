@@ -184,7 +184,7 @@ class Preload_Scheduler implements Countable {
 	/**
 	 * Count the number of URLs we're going to preload.
 	 *
-	 * This includes any URLs excluded by Solid Performance, so it's
+	 * This includes any URLs excluded by Kadence Performance, so it's
 	 * not 100% accurate.
 	 *
 	 * @return int

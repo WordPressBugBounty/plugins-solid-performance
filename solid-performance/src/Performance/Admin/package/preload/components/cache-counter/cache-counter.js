@@ -18,7 +18,7 @@ export default function CacheCounter( { count } ) {
 			<Icon
 				icon={info}
 				size={32}
-				style={{ verticalAlign: 'bottom', fill: 'var(--grape-purple-110)' }}
+				style={{ verticalAlign: 'bottom', fill: 'var(--blue-700)' }}
 			/>
 			{createInterpolateElement(
 				_n(

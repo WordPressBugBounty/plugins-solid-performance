@@ -130,12 +130,12 @@ final class Cache_Method extends Contracts\Command {
 		$this->config->set( 'page_cache.cache_delivery.method', $method )->save();
 
 		if ( $method === Cache_Delivery_Type::HTACCESS ) {
-			WP_CLI::line( 'Force adding Solid Performance htaccess rules...' );
+			WP_CLI::line( 'Force adding Kadence Performance htaccess rules...' );
 
 			$htaccess_manager = $this->manager_collection->get( Cache_Delivery_Type::HTACCESS );
 
 			if ( ! $htaccess_manager->force_add_rules() ) {
-				WP_CLI::error( 'Failed to add Solid Performance htaccess rules.' );
+				WP_CLI::error( 'Failed to add Kadence Performance htaccess rules.' );
 
 				return self::ERROR;
 			}
@@ -145,7 +145,7 @@ final class Cache_Method extends Contracts\Command {
 			$nginx_manager = $this->manager_collection->get( Cache_Delivery_Type::NGINX );
 
 			if ( ! $nginx_manager->add() ) {
-				WP_CLI::error( 'Failed to write Solid Performance nginx.conf' );
+				WP_CLI::error( 'Failed to write Kadence Performance nginx.conf' );
 
 				return self::ERROR;
 			}

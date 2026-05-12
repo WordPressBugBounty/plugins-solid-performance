@@ -78,7 +78,7 @@ class Health_Data {
 	}
 
 	/**
-	 * Adds a new Solid Performance section to site health data.
+	 * Adds a new Kadence Performance section to site health data.
 	 *
 	 * @since 0.1.0
 	 *
@@ -143,7 +143,7 @@ class Health_Data {
 		}
 
 		$info['solid-performance'] = [
-			'label'  => esc_html__( 'Solid Performance', 'solid-performance' ),
+			'label'  => esc_html__( 'Kadence Performance', 'solid-performance' ),
 			'fields' => [
 				'page_cache_status'              => [
 					'label' => esc_html__( 'Page cache', 'solid-performance' ),

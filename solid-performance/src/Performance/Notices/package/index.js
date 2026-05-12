@@ -1,5 +1,5 @@
 /**
- * Solid Performance Notices
+ * Kadence Performance Notices
  *
  */
 import './notice.scss';

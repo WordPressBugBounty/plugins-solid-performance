@@ -1,14 +1,14 @@
 .wrap.solidwp-performance-settings-page,
 body.settings_page_swpsp-settings .components-modal__screen-overlay {
     margin: 0;
-    --grape-purple-120: #49108a;
-    --grape-purple-110: #53129e;
-    --grape-purple-100: #6817c5;
+    --blue-800: #0a2d7d;
+    --blue-700: #0e38a3;
+    --blue-600: #1145c9;
     --surface-primary: #fff;
-    --wp-admin-theme-color: var(--grape-purple-100);
-    --wp-admin-theme-color-darker-10: var(--grape-purple-110);
-    --wp-admin-theme-color-darker-20: var(--grape-purple-120);
-    --wp-components-color-accent: var(--grape-purple-100);
+    --wp-admin-theme-color: var(--blue-600);
+    --wp-admin-theme-color-darker-10: var(--blue-700);
+    --wp-admin-theme-color-darker-20: var(--blue-800);
+    --wp-components-color-accent: var(--blue-600);
 }
 .solidwp-performance-settings-header {
     background-color: #FFFFFF;
@@ -65,7 +65,7 @@ body.settings_page_swpsp-settings .components-modal__screen-overlay {
 			height: 10px;
 
 			div {
-				background-color: var(--grape-purple-100);
+				background-color: var(--blue-600);
 			}
 		}
 
@@ -195,20 +195,20 @@ body.settings_page_swpsp-settings .components-modal__screen-overlay {
 
 .stellarwp-telemetry-btn-primary {
 	color: #FFF;
-	background-color: rgb(104, 23, 197);
+	background-color: rgb(17, 69, 201);
 
 	&:hover,
 	&:focus {
-		background-color: rgb(83, 18, 158);
+		background-color: rgb(14, 56, 163);
 	}
 }
 
 .stellarwp-telemetry-links__link {
-	color: rgb(104, 23, 197);
+	color: rgb(17, 69, 201);
 
 	&:hover,
 	&:focus {
-		color: rgb(83, 18, 158);
+		color: rgb(14, 56, 163);
 	}
 }
 

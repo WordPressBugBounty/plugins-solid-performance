@@ -51,7 +51,7 @@ class Admin_Bar {
 			[
 				'id'     => self::MENU_ID,
 				'parent' => null,
-				'title'  => esc_html__( 'Solid Performance', 'solid-performance' ),
+				'title'  => esc_html__( 'Kadence Performance', 'solid-performance' ),
 			]
 		);
 

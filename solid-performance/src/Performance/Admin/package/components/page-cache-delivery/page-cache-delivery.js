@@ -152,8 +152,8 @@ const PageCacheDelivery = ( { performanceSettings, setState } ) => {
 						setCacheDeliveryState={setCacheDeliveryState}
 						regenerateLabel={__('Regenerate htaccess rules', 'solid-performance')}
 						removeLabel={__('Remove htaccess rules', 'solid-performance')}
-						rulesFoundMessage={__('Solid Performance rules found in your .htaccess file!', 'solid-performance')}
-						rulesMissingMessage={__('The Solid Performance rules are missing from your .htaccess file. Try regenerating the rules to restore full caching functionality.', 'solid-performance')}
+						rulesFoundMessage={__('Kadence Performance rules found in your .htaccess file!', 'solid-performance')}
+						rulesMissingMessage={__('The Kadence Performance rules are missing from your .htaccess file. Try regenerating the rules to restore full caching functionality.', 'solid-performance')}
 					/>
 				)}
 
@@ -166,7 +166,7 @@ const PageCacheDelivery = ( { performanceSettings, setState } ) => {
 							regenerateLabel={__('Regenerate Nginx rules', 'solid-performance')}
 							removeLabel={__('Bypass Nginx cache', 'solid-performance')}
 							rulesFoundMessage={createInterpolateElement(
-								__('Solid Performance Nginx rules found! <a>Get help</a> configuring your server. <em>Note: Nginx caching will not be active until the rules have been included in your server configuration</em>.', 'solid-performance'),
+								__('Kadence Performance Nginx rules found! <a>Get help</a> configuring your server. <em>Note: Nginx caching will not be active until the rules have been included in your server configuration</em>.', 'solid-performance'),
 								{
 									a: (
 										<a
@@ -179,7 +179,7 @@ const PageCacheDelivery = ( { performanceSettings, setState } ) => {
 								}
 							)}
 							rulesMissingMessage={createInterpolateElement(
-								__('The Solid Performance Nginx rules are currently set to bypass server-level caching. Instead, caching will be managed by PHP. <em>Note: This change will not take effect until you reload your Nginx server</em>.', 'solid-performance'),
+								__('The Kadence Performance Nginx rules are currently set to bypass server-level caching. Instead, caching will be managed by PHP. <em>Note: This change will not take effect until you reload your Nginx server</em>.', 'solid-performance'),
 								{
 									em: <em />,
 								}

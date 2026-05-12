@@ -159,10 +159,8 @@ final class Manager {
 		try {
 			$rules = $this->get();
 
-			return str_contains(
-				$rules,
-				'BEGIN SolidPerformanceNginxCacheRules'
-			);
+			return str_contains( $rules, 'BEGIN KadencePerformanceNginxCacheRules' )
+				|| str_contains( $rules, 'BEGIN SolidPerformanceNginxCacheRules' );
 		} catch ( CacheDeliveryReadException $e ) {
 			return false;
 		}

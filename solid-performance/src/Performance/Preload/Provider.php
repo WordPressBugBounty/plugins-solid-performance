@@ -56,7 +56,7 @@ final class Provider extends Service_Provider {
 	}
 
 	/**
-	 * Register the underlying Solid Performance Preloader HTTP Client.
+	 * Register the underlying Kadence Performance Preloader HTTP Client.
 	 *
 	 * @return void
 	 */
@@ -67,7 +67,7 @@ final class Provider extends Service_Provider {
 				$options = [
 					'headers'     => [
 						'User-Agent' => sprintf(
-							'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 (compatible; Solid Performance/%s)',
+							'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 (compatible; Kadence Performance/%s)',
 							$this->container->get( Core::PLUGIN_VERSION )
 						),
 					],

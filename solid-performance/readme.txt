@@ -4,7 +4,7 @@ Donate link: https://solidwp.com/performance
 Tags: cache, caching, performance, page speed, core web vitals
 Requires at least: 6.4
 Tested up to: 6.9
-Stable tag: 1.9.0
+Stable tag: 2.0.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -87,6 +87,13 @@ Lastly, navigate to the Dashboard, then navigate to “Settings > Solid Performa
 Now your site is SOLID with Solid Performance!
 
 == Changelog ==
+
+= 2.0.0 =
+
+#### Enhancements
+
+* Updated branding from SolidWP to Kadence.
+* Updated branding references from StellarWP to Nexcess.
 
 = 1.9.0 =
 

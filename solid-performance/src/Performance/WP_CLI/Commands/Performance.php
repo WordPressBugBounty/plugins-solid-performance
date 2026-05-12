@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles most Solid Performance WP-CLI commands.
+ * Handles most Kadence Performance WP-CLI commands.
  *
  * @since 0.1.0
  *
@@ -17,7 +17,7 @@ use SolidWP\Performance\WP_CLI\Contracts\Command;
 use WP_CLI;
 
 /**
- * Manages Solid Performance functionality.
+ * Manages Kadence Performance functionality.
  *
  * @since 0.1.0
  *
@@ -74,7 +74,7 @@ class Performance extends Command {
 	/**
 	 * Controls the debug setting.
 	 *
-	 * Displays the current status of the debug setting for Solid Performance when used without any parameters. Pass `enable` or `disable` to toggle the setting on/off.
+	 * Displays the current status of the debug setting for Kadence Performance when used without any parameters. Pass `enable` or `disable` to toggle the setting on/off.
 	 *
 	 * ## OPTIONS
 	 *

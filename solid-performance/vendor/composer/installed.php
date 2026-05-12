@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'ithemes/solid-performance',
-        'pretty_version' => '1.9.0',
-        'version' => '1.9.0.0',
-        'reference' => '1e30e2a6bbc32448d2552d16a6e8f159ab6adbee',
+        'pretty_version' => '2.0.0',
+        'version' => '2.0.0.0',
+        'reference' => '09d60d018e5d4c0cabddd6f7311967366c725389',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -20,9 +20,9 @@
             'dev_requirement' => false,
         ),
         'ithemes/solid-performance' => array(
-            'pretty_version' => '1.9.0',
-            'version' => '1.9.0.0',
-            'reference' => '1e30e2a6bbc32448d2552d16a6e8f159ab6adbee',
+            'pretty_version' => '2.0.0',
+            'version' => '2.0.0.0',
+            'reference' => '09d60d018e5d4c0cabddd6f7311967366c725389',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -224,9 +224,9 @@
             'dev_requirement' => false,
         ),
         'stellarwp/telemetry' => array(
-            'pretty_version' => '2.3.4',
-            'version' => '2.3.4.0',
-            'reference' => '74c7b819d574aa5fc1392f982fb32cedc18d4c6f',
+            'pretty_version' => '2.4.1',
+            'version' => '2.4.1.0',
+            'reference' => 'c1b3a43359475460a17589dd0442310a81f51b24',
             'type' => 'library',
             'install_path' => __DIR__ . '/../stellarwp/telemetry',
             'aliases' => array(),

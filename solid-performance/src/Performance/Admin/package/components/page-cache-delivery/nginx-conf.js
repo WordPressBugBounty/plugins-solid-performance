@@ -10,7 +10,7 @@ import CopyableCodeSnippet from '../copyable-code-snippet';
  * @returns {JSX.Element}
  */
 const NginxConf = ( { path } ) => {
-	const conf = `# Include the Solid Performance cache configuration.
+	const conf = `# Include the Kadence Performance cache configuration.
 include ${path};`;
 
 	return (

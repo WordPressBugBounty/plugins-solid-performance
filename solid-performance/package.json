@@ -9,7 +9,7 @@
 		"start": "wp-scripts start"
 	},
 	"dependencies": {
-		"@ithemes/ui": "^0.14.0",
+		"@ithemes/ui": "^0.17.0",
 		"@wordpress/api-fetch": "^7.22.0",
 		"@wordpress/components": "^29.8.0",
 		"@wordpress/compose": "^7.22.0",
