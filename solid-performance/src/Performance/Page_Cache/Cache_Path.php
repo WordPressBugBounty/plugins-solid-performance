@@ -13,6 +13,7 @@ use FilesystemIterator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RuntimeException;
+use SolidWP\Performance\Http\Uri;
 use SolidWP\Performance\Page_Cache\Compression\Strategies\Brotli;
 use SolidWP\Performance\Page_Cache\Compression\Strategies\Gzip;
 use SolidWP\Performance\Page_Cache\Compression\Strategies\Html;
@@ -79,7 +80,7 @@ class Cache_Path {
 	public function get_site_cache_dir(): string {
 		$path      = $this->get_page_cache_dir();
 		$site_host = wp_parse_url( get_site_url(), PHP_URL_HOST );
-
+		$site_host = is_string( $site_host ) ? Uri::normalize_host( $site_host ) : '';
 
 		return $path . DIRECTORY_SEPARATOR . $site_host;
 	}
@@ -115,7 +116,7 @@ class Cache_Path {
 			throw new RuntimeException( 'URL needs a valid host.' );
 		}
 
-		$host   = trim( $url_parts['host'], '/' );
+		$host   = Uri::normalize_host( trim( $url_parts['host'], '/' ) );
 		$path   = trim( $url_parts['path'] ?? '', '/' );
 		$scheme = $this->get_scheme();
 

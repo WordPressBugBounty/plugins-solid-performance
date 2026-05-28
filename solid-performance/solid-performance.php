@@ -4,7 +4,7 @@
  * Description: Optimize site performance, boost PageSpeed, and serve a faster website with this simple site optimization tool from Kadence. Easy page caching setup will accelerate your site in minutes with only a couple of clicks.
  * Author: Kadence
  * Author URI: https://kadencewp.com
- * Version: 2.0.0
+ * Version: 2.0.1
  * Text Domain: solid-performance
  * Domain Path: /lang
  * License: GPLv2-or-later

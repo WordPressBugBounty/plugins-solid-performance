@@ -177,7 +177,7 @@ class Request {
 			$protocol = 'https';
 		}
 
-		$host = SuperGlobals::get_server_var( 'HTTP_HOST', '' );
+		$host = Uri::normalize_host( (string) SuperGlobals::get_server_var( 'HTTP_HOST', '' ) );
 		$path = SuperGlobals::get_server_var( 'REQUEST_URI', '' );
 
 		$this->uri = $protocol . '://' . $host . $path;
