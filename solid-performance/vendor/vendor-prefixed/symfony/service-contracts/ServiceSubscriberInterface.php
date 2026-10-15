@@ -34,9 +34,9 @@ interface ServiceSubscriberInterface
      * For mandatory dependencies:
      *
      *  * ['logger' => 'SolidWP\Performance\Psr\Log\LoggerInterface'] means the objects use the "logger" name
-     *    internally to fetch a service which must implement Psr\Log\LoggerInterface.
+     *    internally to fetch a service which must implement SolidWP\Performance\Psr\Log\LoggerInterface.
      *  * ['loggers' => 'SolidWP\Performance\Psr\Log\LoggerInterface[]'] means the objects use the "loggers" name
-     *    internally to fetch an iterable of Psr\Log\LoggerInterface instances.
+     *    internally to fetch an iterable of SolidWP\Performance\Psr\Log\LoggerInterface instances.
      *  * ['SolidWP\Performance\Psr\Log\LoggerInterface'] is a shortcut for
      *  * ['SolidWP\Performance\Psr\Log\LoggerInterface' => 'SolidWP\Performance\Psr\Log\LoggerInterface']
      *

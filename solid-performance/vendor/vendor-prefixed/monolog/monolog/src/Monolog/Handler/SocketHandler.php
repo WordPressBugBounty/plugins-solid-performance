@@ -19,7 +19,7 @@ use SolidWP\Performance\Monolog\Logger;
  * @author Pablo de Leon Belloc <pablolb@gmail.com>
  * @see    http://php.net/manual/en/function.fsockopen.php
  *
- * @phpstan-import-type Record from \Monolog\Logger
+ * @phpstan-import-type Record from \SolidWP\Performance\Monolog\Logger
  * @phpstan-import-type FormattedRecord from AbstractProcessingHandler
  */
 class SocketHandler extends AbstractProcessingHandler

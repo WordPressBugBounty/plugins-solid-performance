@@ -4,7 +4,7 @@
  *
  * @since   1.0.0
  *
- * @package SolidWP\Performance\StellarWP\Schema\Fields\Contracts
+ * @package StellarWP\Schema\Fields\Contracts
  */
 namespace SolidWP\Performance\StellarWP\Schema\Fields\Contracts;
 
@@ -15,7 +15,7 @@ use SolidWP\Performance\StellarWP\Schema\Tables\Contracts\Table;
  *
  * @since   1.0.0
  *
- * @package SolidWP\Performance\StellarWP\Schema\Fields\Contracts
+ * @package StellarWP\Schema\Fields\Contracts
  */
 interface Schema_Interface {
 	/**

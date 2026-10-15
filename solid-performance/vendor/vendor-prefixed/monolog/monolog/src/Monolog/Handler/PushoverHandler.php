@@ -22,8 +22,8 @@ use SolidWP\Performance\Psr\Log\LogLevel;
  * @see    https://www.pushover.net/api
  *
  * @phpstan-import-type FormattedRecord from AbstractProcessingHandler
- * @phpstan-import-type Level from \Monolog\Logger
- * @phpstan-import-type LevelName from \Monolog\Logger
+ * @phpstan-import-type Level from \SolidWP\Performance\Monolog\Logger
+ * @phpstan-import-type LevelName from \SolidWP\Performance\Monolog\Logger
  */
 class PushoverHandler extends SocketHandler
 {

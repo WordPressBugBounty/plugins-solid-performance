@@ -33,7 +33,7 @@
         "symfony/css-selector": ""
     },
     "autoload": {
-        "psr-4": { "SolidWP\\Performance\\Symfony\\Component\\DomCrawler\\": "" },
+        "psr-4": { "Symfony\\Component\\DomCrawler\\": "" },
         "exclude-from-classmap": [
             "/Tests/"
         ]

@@ -27,9 +27,9 @@ use SolidWP\Performance\Monolog\Utils;
  *
  * Monolog setup:
  *
- * $logger = new \SolidWP\Performance\Monolog\Logger('fluent.tag');
- * $fluentHandler = new \SolidWP\Performance\Monolog\Handler\SocketHandler('unix:///var/run/td-agent/td-agent.sock');
- * $fluentHandler->setFormatter(new \SolidWP\Performance\Monolog\Formatter\FluentdFormatter());
+ * $logger = new SolidWP\Performance\Monolog\Logger('fluent.tag');
+ * $fluentHandler = new SolidWP\Performance\Monolog\Handler\SocketHandler('unix:///var/run/td-agent/td-agent.sock');
+ * $fluentHandler->setFormatter(new SolidWP\Performance\Monolog\Formatter\FluentdFormatter());
  * $logger->pushHandler($fluentHandler);
  *
  * @author Andrius Putna <fordnox@gmail.com>
@@ -44,7 +44,7 @@ class FluentdFormatter implements FormatterInterface
     public function __construct(bool $levelTag = false)
     {
         if (!function_exists('json_encode')) {
-            throw new \RuntimeException('PHP\'s json extension is required to use SolidWP\Performance\Monolog\'s FluentdUnixFormatter');
+            throw new \RuntimeException('PHP\'s json extension is required to use Monolog\'s FluentdUnixFormatter');
         }
 
         $this->levelTag = $levelTag;

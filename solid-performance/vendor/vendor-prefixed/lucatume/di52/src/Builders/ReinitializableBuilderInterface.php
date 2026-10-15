@@ -2,7 +2,7 @@
 /**
  * The API provided by a Builder that can be re-initialized.
  *
- * @package SolidWP\Performance\lucatume\DI52\Builders
+ * @package lucatume\DI52\Builders
  */
 
 namespace SolidWP\Performance\lucatume\DI52\Builders;
@@ -10,7 +10,7 @@ namespace SolidWP\Performance\lucatume\DI52\Builders;
 /**
  * Interface ReinitializableBuilderInterface
  *
- * @package SolidWP\Performance\lucatume\DI52\Builders
+ * @package lucatume\DI52\Builders
  */
 interface ReinitializableBuilderInterface
 {

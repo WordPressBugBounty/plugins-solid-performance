@@ -18,7 +18,7 @@ use SolidWP\Performance\Monolog\Formatter\LineFormatter;
 /**
  * Common syslog functionality
  *
- * @phpstan-import-type Level from \Monolog\Logger
+ * @phpstan-import-type Level from \SolidWP\Performance\Monolog\Logger
  */
 abstract class AbstractSyslogHandler extends AbstractProcessingHandler
 {

@@ -16,7 +16,7 @@ namespace SolidWP\Performance\Monolog\Processor;
  *
  * @author Nicolas Grekas <p@tchwork.com>
  *
- * @phpstan-import-type Record from \Monolog\Logger
+ * @phpstan-import-type Record from \SolidWP\Performance\Monolog\Logger
  */
 interface ProcessorInterface
 {

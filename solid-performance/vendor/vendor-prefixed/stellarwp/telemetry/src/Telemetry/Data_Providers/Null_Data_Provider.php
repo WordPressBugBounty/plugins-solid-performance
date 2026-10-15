@@ -4,7 +4,7 @@
  *
  * @since   2.1.0
  *
- * @package SolidWP\Performance\StellarWP\Telemetry\Data_Providers;
+ * @package StellarWP\Telemetry\Data_Providers;
  */
 
 namespace SolidWP\Performance\StellarWP\Telemetry\Data_Providers;
@@ -16,7 +16,7 @@ use SolidWP\Performance\StellarWP\Telemetry\Contracts\Data_Provider;
  *
  * @since   2.1.0
  *
- * @package SolidWP\Performance\StellarWP\Telemetry\Data_Providers;
+ * @package StellarWP\Telemetry\Data_Providers;
  */
 class Null_Data_Provider implements Data_Provider {
 

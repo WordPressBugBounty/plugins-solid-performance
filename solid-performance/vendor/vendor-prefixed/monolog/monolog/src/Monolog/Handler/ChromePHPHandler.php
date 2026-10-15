@@ -23,7 +23,7 @@ use SolidWP\Performance\Monolog\Utils;
  *
  * @author Christophe Coevoet <stof@notk.org>
  *
- * @phpstan-import-type Record from \Monolog\Logger
+ * @phpstan-import-type Record from \SolidWP\Performance\Monolog\Logger
  */
 class ChromePHPHandler extends AbstractProcessingHandler
 {
@@ -70,7 +70,7 @@ class ChromePHPHandler extends AbstractProcessingHandler
     {
         parent::__construct($level, $bubble);
         if (!function_exists('json_encode')) {
-            throw new \RuntimeException('PHP\'s json extension is required to use SolidWP\Performance\Monolog\'s ChromePHPHandler');
+            throw new \RuntimeException('PHP\'s json extension is required to use Monolog\'s ChromePHPHandler');
         }
     }
 

@@ -19,9 +19,9 @@ namespace SolidWP\Performance\Monolog\Handler;
  * @author Jordi Boggiano <j.boggiano@seld.be>
  * @author Christophe Coevoet <stof@notk.org>
  *
- * @phpstan-import-type LevelName from \Monolog\Logger
- * @phpstan-import-type Level from \Monolog\Logger
- * @phpstan-import-type Record from \Monolog\Logger
+ * @phpstan-import-type LevelName from \SolidWP\Performance\Monolog\Logger
+ * @phpstan-import-type Level from \SolidWP\Performance\Monolog\Logger
+ * @phpstan-import-type Record from \SolidWP\Performance\Monolog\Logger
  * @phpstan-type FormattedRecord array{message: string, context: mixed[], level: Level, level_name: LevelName, channel: string, datetime: \DateTimeImmutable, extra: mixed[], formatted: mixed}
  */
 abstract class AbstractProcessingHandler extends AbstractHandler implements ProcessableHandlerInterface, FormattableHandlerInterface

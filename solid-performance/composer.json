@@ -63,7 +63,7 @@
             "@php ./bin/pup.phar"
         ],
         "strauss-install": [
-            "test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.20.1/strauss.phar"
+            "test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.30.0/strauss.phar"
         ],
         "strauss": [
             "@strauss-install",
@@ -108,6 +108,7 @@
             "namespace_prefix": "SolidWP\\Performance\\",
             "classmap_prefix": "SolidWP_Performance_",
             "constant_prefix": "SolidWP_Performance_",
+            "functions_prefix": false,
             "delete_vendor_packages": false,
             "excluded_from_prefix": {
                 "file_patterns": [

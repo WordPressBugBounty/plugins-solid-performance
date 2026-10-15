@@ -3,7 +3,7 @@
  * Class used to handle the special case of a parse error in a nested dependency
  * and bubble its nature up.
  *
- * @package SolidWP\Performance\lucatume\DI52;
+ * @package lucatume\DI52;
  */
 
 namespace SolidWP\Performance\lucatume\DI52;
@@ -13,7 +13,7 @@ use Throwable;
 /**
  * Class NestedParseError.
  *
- * @package SolidWP\Performance\lucatume\DI52;
+ * @package lucatume\DI52;
  */
 class NestedParseError extends \Exception
 {

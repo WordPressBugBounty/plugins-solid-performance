@@ -22,7 +22,7 @@
         "ext-ctype": "*"
     },
     "autoload": {
-        "psr-4": { "SolidWP\\Performance\\Symfony\\Polyfill\\Ctype\\": "" },
+        "psr-4": { "Symfony\\Polyfill\\Ctype\\": "" },
         "files": [ "bootstrap.php" ]
     },
     "suggest": {

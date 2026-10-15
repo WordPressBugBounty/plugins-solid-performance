@@ -27,7 +27,7 @@
         "symfony/service-implementation": ""
     },
     "autoload": {
-        "psr-4": { "SolidWP\\Performance\\Symfony\\Contracts\\Service\\": "" }
+        "psr-4": { "Symfony\\Contracts\\Service\\": "" }
     },
     "minimum-stability": "dev",
     "extra": {

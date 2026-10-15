@@ -25,7 +25,7 @@
         "symfony/process": "^5.4|^6.4"
     },
     "autoload": {
-        "psr-4": { "SolidWP\\Performance\\Symfony\\Component\\Filesystem\\": "" },
+        "psr-4": { "Symfony\\Component\\Filesystem\\": "" },
         "exclude-from-classmap": [
             "/Tests/"
         ]

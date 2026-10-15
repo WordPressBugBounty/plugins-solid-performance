@@ -28,8 +28,8 @@ trait WhereClause {
 	private $includeWhereKeyword = true;
 
 	/**
-	 * @param  string|Closure|null  $column  The Closure will receive a StellarWP\DB\QueryBuilder\WhereQueryBuilder instance
-	 * @param  string|Closure|array|null|mixed  $value  The Closure will receive a StellarWP\DB\QueryBuilder\QueryBuilder instance
+	 * @param  string|Closure|null  $column  The Closure will receive a SolidWP\Performance\StellarWP\DB\QueryBuilder\WhereQueryBuilder instance
+	 * @param  string|Closure|array|null|mixed  $value  The Closure will receive a SolidWP\Performance\StellarWP\DB\QueryBuilder\QueryBuilder instance
 	 * @param  string  $comparisonOperator
 	 * @param  string  $logicalOperator
 	 *
@@ -78,8 +78,8 @@ trait WhereClause {
 	}
 
 	/**
-	 * @param  string|Closure|null  $column  The closure will receive a StellarWP\DB\QueryBuilder\WhereQueryBuilder instance
-	 * @param  string|Closure|array|null|mixed  $value  The closure will receive a StellarWP\DB\QueryBuilder\QueryBuilder instance
+	 * @param  string|Closure|null  $column  The closure will receive a SolidWP\Performance\StellarWP\DB\QueryBuilder\WhereQueryBuilder instance
+	 * @param  string|Closure|array|null|mixed  $value  The closure will receive a SolidWP\Performance\StellarWP\DB\QueryBuilder\QueryBuilder instance
 	 * @param  string  $comparisonOperator
 	 *
 	 * @return $this
@@ -335,7 +335,7 @@ trait WhereClause {
 
 
 	/**
-	 * @param  Closure  $callback  The closure will receive a StellarWP\DB\QueryBuilder\QueryBuilder instance
+	 * @param  Closure  $callback  The closure will receive a SolidWP\Performance\StellarWP\DB\QueryBuilder\QueryBuilder instance
 	 *
 	 * @return $this
 	 */
@@ -348,7 +348,7 @@ trait WhereClause {
 	}
 
 	/**
-	 * @param  Closure  $callback  The closure will receive a StellarWP\DB\QueryBuilder\QueryBuilder instance
+	 * @param  Closure  $callback  The closure will receive a SolidWP\Performance\StellarWP\DB\QueryBuilder\QueryBuilder instance
 	 *
 	 * @return $this
 	 */

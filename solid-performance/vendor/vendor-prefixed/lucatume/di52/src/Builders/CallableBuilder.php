@@ -2,7 +2,7 @@
 /**
  * Callable-based builder.
  *
- * @package SolidWP\Performance\lucatume\DI52\Builders
+ * @package lucatume\DI52\Builders
  */
 
 namespace SolidWP\Performance\lucatume\DI52\Builders;
@@ -12,7 +12,7 @@ use SolidWP\Performance\lucatume\DI52\Container;
 /**
  * Class CallableBuilder
  *
- * @package SolidWP\Performance\lucatume\DI52\Builders
+ * @package lucatume\DI52\Builders
  */
 class CallableBuilder implements BuilderInterface, ReinitializableBuilderInterface
 {

@@ -2,7 +2,7 @@
 /**
  * The representation of a builder parameter.
  *
- * @package SolidWP\Performance\lucatume\DI52\Builders
+ * @package lucatume\DI52\Builders
  */
 
 namespace SolidWP\Performance\lucatume\DI52\Builders;
@@ -16,7 +16,7 @@ use ReflectionParameter;
 /**
  * Class Parameter
  *
- * @package SolidWP\Performance\lucatume\DI52\Builders
+ * @package lucatume\DI52\Builders
  */
 class Parameter
 {

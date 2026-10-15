@@ -4,7 +4,7 @@
  *
  * @since 1.0.0
  *
- * @package SolidWP\Performance\StellarWP\Telemetry\Contracts
+ * @package StellarWP\Telemetry\Contracts
  */
 
 namespace SolidWP\Performance\StellarWP\Telemetry\Contracts;
@@ -14,7 +14,7 @@ namespace SolidWP\Performance\StellarWP\Telemetry\Contracts;
  *
  * @since 1.0.0
  *
- * @package SolidWP\Performance\StellarWP\Telemetry\Contracts
+ * @package StellarWP\Telemetry\Contracts
  */
 interface Runnable {
 	/**

@@ -14,7 +14,7 @@ use SolidWP\Performance\lucatume\DI52\NotFoundException;
 /**
  * Class Factory
  *
- * @package SolidWP\Performance\lucatume\DI52\Builders
+ * @package lucatume\DI52\Builders
  */
 class Factory
 {

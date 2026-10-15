@@ -19,7 +19,7 @@ use SolidWP\Performance\Monolog\ResettableInterface;
  *
  * @author Lenar Lõhmus <lenar@city.ee>
  *
- * @phpstan-import-type Record from \Monolog\Logger
+ * @phpstan-import-type Record from \SolidWP\Performance\Monolog\Logger
  */
 class GroupHandler extends Handler implements ProcessableHandlerInterface, ResettableInterface
 {

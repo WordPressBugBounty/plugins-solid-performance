@@ -22,7 +22,7 @@
         "symfony/http-client-implementation": ""
     },
     "autoload": {
-        "psr-4": { "SolidWP\\Performance\\Symfony\\Contracts\\HttpClient\\": "" }
+        "psr-4": { "Symfony\\Contracts\\HttpClient\\": "" }
     },
     "minimum-stability": "dev",
     "extra": {

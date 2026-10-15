@@ -26,7 +26,7 @@ trait HavingClause {
 	 * @param  string  $column
 	 * @param  string  $comparisonOperator
 	 * @param  string  $value
-	 * @param  null|string  $mathFunction  \StellarWP\DB\QueryBuilder\Types\Math
+	 * @param  null|string  $mathFunction  \SolidWP\Performance\StellarWP\DB\QueryBuilder\Types\Math
 	 *
 	 * @return $this
 	 *
@@ -47,7 +47,7 @@ trait HavingClause {
 	 * @param  string  $column
 	 * @param  string  $comparisonOperator
 	 * @param  string  $value
-	 * @param  null|string  $mathFunction  \StellarWP\DB\QueryBuilder\Types\Math
+	 * @param  null|string  $mathFunction  \SolidWP\Performance\StellarWP\DB\QueryBuilder\Types\Math
 	 *
 	 * @return $this
 	 */

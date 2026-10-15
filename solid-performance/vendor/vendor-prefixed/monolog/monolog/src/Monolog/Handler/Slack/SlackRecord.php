@@ -24,8 +24,8 @@ use SolidWP\Performance\Monolog\Formatter\FormatterInterface;
  * @see    https://api.slack.com/incoming-webhooks
  * @see    https://api.slack.com/docs/message-attachments
  *
- * @phpstan-import-type FormattedRecord from \Monolog\Handler\AbstractProcessingHandler
- * @phpstan-import-type Record from \Monolog\Logger
+ * @phpstan-import-type FormattedRecord from \SolidWP\Performance\Monolog\Handler\AbstractProcessingHandler
+ * @phpstan-import-type Record from \SolidWP\Performance\Monolog\Logger
  */
 class SlackRecord
 {

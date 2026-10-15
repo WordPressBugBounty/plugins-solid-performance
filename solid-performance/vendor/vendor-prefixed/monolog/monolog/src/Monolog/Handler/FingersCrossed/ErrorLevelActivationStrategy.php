@@ -19,8 +19,8 @@ use SolidWP\Performance\Psr\Log\LogLevel;
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  *
- * @phpstan-import-type Level from \Monolog\Logger
- * @phpstan-import-type LevelName from \Monolog\Logger
+ * @phpstan-import-type Level from \SolidWP\Performance\Monolog\Logger
+ * @phpstan-import-type LevelName from \SolidWP\Performance\Monolog\Logger
  */
 class ErrorLevelActivationStrategy implements ActivationStrategyInterface
 {

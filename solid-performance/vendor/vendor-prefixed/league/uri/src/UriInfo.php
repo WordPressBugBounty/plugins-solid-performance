@@ -48,7 +48,7 @@ final class UriInfo
      *
      * To be valid an URI MUST implement at least one of the following interface:
      *     - League\Uri\UriInterface
-     *     - Psr\Http\Message\UriInterface
+     *     - SolidWP\Performance\Psr\Http\Message\UriInterface
      *
      * @param mixed $uri the URI to validate
      *

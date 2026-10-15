@@ -3,8 +3,8 @@ Contributors: solidwp, tarecord, borkweb, defunctlife
 Donate link: https://solidwp.com/performance
 Tags: cache, caching, performance, page speed, core web vitals
 Requires at least: 6.4
-Tested up to: 7.0
-Stable tag: 2.0.1
+Tested up to: 7.1
+Stable tag: 2.0.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -87,6 +87,12 @@ Lastly, navigate to the Dashboard, then navigate to “Settings > Solid Performa
 Now your site is SOLID with Solid Performance!
 
 == Changelog ==
+
+= 2.0.2 =
+
+#### Bug fixes
+
+* Prevented a fatal error when purging cached pages whose slugs stay percent-encoded, such as non-Latin post titles, so edits clear every cached copy of the page.
 
 = 2.0.1 =
 

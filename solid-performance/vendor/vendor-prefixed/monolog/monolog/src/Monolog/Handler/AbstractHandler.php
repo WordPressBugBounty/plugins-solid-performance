@@ -20,8 +20,8 @@ use SolidWP\Performance\Psr\Log\LogLevel;
  *
  * @author Jordi Boggiano <j.boggiano@seld.be>
  *
- * @phpstan-import-type Level from \Monolog\Logger
- * @phpstan-import-type LevelName from \Monolog\Logger
+ * @phpstan-import-type Level from \SolidWP\Performance\Monolog\Logger
+ * @phpstan-import-type LevelName from \SolidWP\Performance\Monolog\Logger
  */
 abstract class AbstractHandler extends Handler implements ResettableInterface
 {

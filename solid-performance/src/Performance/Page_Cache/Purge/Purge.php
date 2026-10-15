@@ -103,7 +103,7 @@ class Purge {
 
 			// Delete mobile version.
 			$this->filesystem->delete(
-				sprintf( "$path%s.$ext", Device_Resolver::MOBILE_SUFFIX ),
+				$path . Device_Resolver::MOBILE_SUFFIX . ".$ext",
 				false,
 				'f'
 			);

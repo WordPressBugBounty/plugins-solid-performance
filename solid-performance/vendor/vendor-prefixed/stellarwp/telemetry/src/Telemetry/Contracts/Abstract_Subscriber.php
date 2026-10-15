@@ -2,7 +2,7 @@
 /**
  * Handles setting up a base for all subscribers.
  *
- * @package SolidWP\Performance\StellarWP\Telemetry\Contracts
+ * @package StellarWP\Telemetry\Contracts
  */
 
 namespace SolidWP\Performance\StellarWP\Telemetry\Contracts;
@@ -12,7 +12,7 @@ use SolidWP\Performance\StellarWP\ContainerContract\ContainerInterface;
 /**
  * Class Abstract_Subscriber
  *
- * @package SolidWP\Performance\StellarWP\Telemetry\Contracts
+ * @package StellarWP\Telemetry\Contracts
  */
 abstract class Abstract_Subscriber implements Subscriber_Interface {
 

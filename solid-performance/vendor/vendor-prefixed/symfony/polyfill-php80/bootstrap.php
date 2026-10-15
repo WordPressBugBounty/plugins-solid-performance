@@ -15,8 +15,8 @@ if (\PHP_VERSION_ID >= 80000) {
     return;
 }
 
-if (!defined('FILTER_VALIDATE_BOOL') && defined('FILTER_VALIDATE_BOOLEAN')) {
-    define('FILTER_VALIDATE_BOOL', \FILTER_VALIDATE_BOOLEAN);
+if (!defined('SolidWP_Performance_FILTER_VALIDATE_BOOL') && defined('FILTER_VALIDATE_BOOLEAN')) {
+    define('SolidWP_Performance_FILTER_VALIDATE_BOOL', \FILTER_VALIDATE_BOOLEAN);
 }
 
 if (!function_exists('fdiv')) {

@@ -13,7 +13,7 @@ use SolidWP\Performance\lucatume\DI52\Container;
 /**
  * Class ClosureBuilder
  *
- * @package SolidWP\Performance\lucatume\DI52\Builders
+ * @package lucatume\DI52\Builders
  */
 class ClosureBuilder implements BuilderInterface
 {

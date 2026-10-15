@@ -7,7 +7,7 @@ use Closure;
 /**
  * Interface PipeInterface
  *
- * @package SolidWP\Performance\StellarWP\Pipeline\Contracts
+ * @package StellarWP\Pipeline\Contracts
  */
 interface Pipe {
 	/**

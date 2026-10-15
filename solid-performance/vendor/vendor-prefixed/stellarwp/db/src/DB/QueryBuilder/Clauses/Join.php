@@ -27,7 +27,7 @@ class Join {
 
 	/**
 	 * @param  string  $table
-	 * @param  string  $joinType  \StellarWP\DB\QueryBuilder\Types\JoinType
+	 * @param  string  $joinType  \SolidWP\Performance\StellarWP\DB\QueryBuilder\Types\JoinType
 	 * @param  string|null  $alias
 	 */
 	public function __construct( $joinType, $table, $alias = '' ) {

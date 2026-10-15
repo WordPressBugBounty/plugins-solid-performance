@@ -22,7 +22,7 @@ trait JoinClause {
 	 * Method used to build advanced JOIN queries, Check README.md for more info.
 	 * If you need to perform only simple JOINs with only one JOIN condition, then you don't need this method.
 	 *
-	 * @param  Closure  $callback  The closure will receive a StellarWP\DB\QueryBuilder\JoinQueryBuilder instance
+	 * @param  Closure  $callback  The closure will receive a SolidWP\Performance\StellarWP\DB\QueryBuilder\JoinQueryBuilder instance
 	 *
 	 * @return static
 	 */

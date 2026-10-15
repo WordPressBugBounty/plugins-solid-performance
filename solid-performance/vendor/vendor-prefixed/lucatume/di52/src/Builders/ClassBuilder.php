@@ -15,7 +15,7 @@ use ReflectionMethod;
 /**
  * Class ClassBuilder
  *
- * @package SolidWP\Performance\lucatume\DI52\Builders
+ * @package lucatume\DI52\Builders
  */
 class ClassBuilder implements BuilderInterface, ReinitializableBuilderInterface
 {

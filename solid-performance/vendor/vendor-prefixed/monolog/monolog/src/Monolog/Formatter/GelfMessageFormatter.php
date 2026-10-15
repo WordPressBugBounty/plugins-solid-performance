@@ -21,7 +21,7 @@ use SolidWP\Performance\Monolog\Utils;
  *
  * @author Matt Lehner <mlehner@gmail.com>
  *
- * @phpstan-import-type Level from \Monolog\Logger
+ * @phpstan-import-type Level from \SolidWP\Performance\Monolog\Logger
  */
 class GelfMessageFormatter extends NormalizerFormatter
 {
@@ -73,7 +73,7 @@ class GelfMessageFormatter extends NormalizerFormatter
     public function __construct(?string $systemName = null, ?string $extraPrefix = null, string $contextPrefix = 'ctxt_', ?int $maxLength = null)
     {
         if (!class_exists(Message::class)) {
-            throw new \RuntimeException('Composer package graylog2/gelf-php is required to use SolidWP\Performance\Monolog\'s GelfMessageFormatter');
+            throw new \RuntimeException('Composer package graylog2/gelf-php is required to use Monolog\'s GelfMessageFormatter');
         }
 
         parent::__construct('U.u');

@@ -2,7 +2,7 @@
 /**
  * Resolves ids (string, class names or mixed values) to values with auto-wiring.
  *
- * @package SolidWP\Performance\lucatume\DI52\Builders
+ * @package lucatume\DI52\Builders
  */
 
 namespace SolidWP\Performance\lucatume\DI52\Builders;
@@ -12,7 +12,7 @@ use SolidWP\Performance\lucatume\DI52\NotFoundException;
 /**
  * Class Resolver
  *
- * @package SolidWP\Performance\lucatume\DI52\Builders
+ * @package lucatume\DI52\Builders
  */
 class Resolver
 {

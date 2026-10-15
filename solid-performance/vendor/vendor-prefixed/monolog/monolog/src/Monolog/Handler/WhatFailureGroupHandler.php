@@ -17,7 +17,7 @@ namespace SolidWP\Performance\Monolog\Handler;
  *
  * @author Craig D'Amelio <craig@damelio.ca>
  *
- * @phpstan-import-type Record from \Monolog\Logger
+ * @phpstan-import-type Record from \SolidWP\Performance\Monolog\Logger
  */
 class WhatFailureGroupHandler extends GroupHandler
 {

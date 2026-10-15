@@ -29,7 +29,7 @@ use SolidWP\Performance\Monolog\Utils;
  *
  * @author Mazur Alexandr <alexandrmazur96@gmail.com>
  *
- * @phpstan-import-type Record from \Monolog\Logger
+ * @phpstan-import-type Record from \SolidWP\Performance\Monolog\Logger
  */
 class TelegramBotHandler extends AbstractProcessingHandler
 {

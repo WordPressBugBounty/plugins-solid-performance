@@ -10,7 +10,7 @@ namespace SolidWP\Performance\lucatume\DI52\Builders;
 /**
  * Interface BuilderInterface
  *
- * @package SolidWP\Performance\lucatume\DI52\Builders
+ * @package lucatume\DI52\Builders
  */
 interface BuilderInterface
 {

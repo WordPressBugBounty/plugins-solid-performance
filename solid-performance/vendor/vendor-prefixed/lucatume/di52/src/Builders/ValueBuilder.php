@@ -10,7 +10,7 @@ namespace SolidWP\Performance\lucatume\DI52\Builders;
 /**
  * Class ValueBuilder
  *
- * @package SolidWP\Performance\lucatume\DI52\Builders
+ * @package lucatume\DI52\Builders
  */
 class ValueBuilder implements BuilderInterface
 {
